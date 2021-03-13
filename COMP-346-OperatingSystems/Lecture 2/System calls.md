@@ -5,17 +5,19 @@
 So when that happens, the program runs a `system call` asking the Operating system for resources, switching the mode bit from `user` to `kernel` bit. 
 This switch is known as a [[Context Switch]]
 
-<p style="text-align:center;"><img src="https://www.guru99.com/images/1/121119_0451_SystemCalli3.png"
- alt="Ring"></p>
+<p align="center">
+	<img src="https://www.guru99.com/images/1/121119_0451_SystemCalli3.png"
+ alt="Ring">
+</p>
 
-**Step 1)** The processes executed in the user mode till the time a system call interrupts it.
+**Step 1)** The processes executed in the user mode till the time a system call interrupts it. 
 
 **Step 2)** After that, the system call is executed in the kernel-mode on a priority basis.
 
 **Step 3)** Once system call execution is over, control returns to the user mode.,
 
 **Step 4)** The execution of user processes resumed in Kernel mode.
-
+>System calls can be seen as the API which the OS exposes to be used by programs. When a program calls a system call it will cause a [[Trap]]
 
 ## Example Linux System Calls
 
@@ -27,6 +29,7 @@ Device Manipulation | `ioctl();` `read();` `write();`
 Information Maintenance | `getpid();` `alarm();` `sleep();`
 Communication | `pipe();` `shmget();` `mmap();`
 Protection | `chmod();` `umask();` `chown();`
+<hr>
 
 ## Categories of System Calls
 System calls can be grouped into five major categories. These are some examples of the system calls. This is not a specific language just self-explanatory common routines :
@@ -59,4 +62,5 @@ All the information about the system are updated and maintained by the OS.
 #### 5. Communications
 `create.connection`, `delete.connection`
 `send.message`, `recieve.message`
-Processes often need to communicate with each other. So they need to have a connection to exchange information and statuses. The OS handles this communication because of [[Protection]]/
+Processes often need to communicate with each other. So they need to have a connection to exchange information and statuses. The OS handles this communication because of [[Protection]]
+<hr>

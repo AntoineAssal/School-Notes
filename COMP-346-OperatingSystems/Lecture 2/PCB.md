@@ -1,1 +1,15 @@
-# Process Control Block
+# Process Control Block (PCB)
+<hr>
+
+## What is the PCB
+
+A data structure maintained by the operating system for **every process**. It is identified by an integer `PID`. It's architecture depends on the Operating System and may contain different information, below is a simple example.
+
+## What does the PCB Look like
+<p align="center">
+	<img src="https://zitoc.com/wp-content/uploads/2019/02/process-control-block-PCB.png"alt="Linux architecture">
+</p>
+
+This `PCB` is created when a new process is created. It also includes other information such as `Priority` and `CPU Scheduling info`. Some of these fields are updated when process state is changed, such as `memory mapping`. Other fields are constantly updated like the `Program Counter`.
+ ## The PCB is used in [[Context Switch]]
+ 

@@ -1,4 +1,6 @@
 # Modern Operating System Functionality
+<hr>
+
 ## [[Process]] and [[Thread]] Management
 Users start up applications and those applications are running as processes. Processes may have multiple threads. It is the OS's job to take these applications and threads and manage them given the limited resources available. So we want them to get time on the CPU and we want fairness, security and good performance.
 ## Concurrency

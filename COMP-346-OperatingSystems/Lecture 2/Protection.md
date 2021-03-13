@@ -14,12 +14,15 @@ LTR
 INT n
 ```
 Some of these instructions are sensitive or `privileged`. Meaning some instructions need to be issued only be the kernel. For example`HLT`, we dont want a random program to halt your machine.
+<hr>
 
 ### Kernel mode vs. User mode
 Kernel mode vs. User mode: To protect the system from aberrant users and processors, some instructions are restricted to use only by the OS. 
 
 > The architecture has a BIT that indicates if you're in `user` or `kernel` mode. These are the key modes but there's usually a ring for different privileges.
-<p style="text-align:center;"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/2f/Priv_rings.svg/300px-Priv_rings.svg.png" alt="Ring"></p>
+<p align="center">
+	<img src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/2f/Priv_rings.svg/300px-Priv_rings.svg.png" alt="Ring">
+</p>
 
 "Users" may not:
 - Address I/O directly ❌
@@ -29,6 +32,7 @@ Kernel mode vs. User mode: To protect the system from aberrant users and process
 - Halt the machine ❌
 
 These protected instructions, `privileged` can only be executed in kernel mode. Any Operating system [[Architecture]] will have this constraint.
+<hr>
 
 ### How do we use I/O if the user program doesn't have permission
 

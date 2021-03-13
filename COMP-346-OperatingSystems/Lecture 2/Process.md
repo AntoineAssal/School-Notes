@@ -8,4 +8,6 @@ An instance of an executing [[Program]]. A process is an active entity as it is 
 `exec` replaces the child image. Loads new program and start from first instruction
 
 ## Process Lifecycle
-![](https://zitoc.com/wp-content/uploads/2019/02/process-state.png)
+<p align="center">
+	<img src="https://zitoc.com/wp-content/uploads/2019/02/process-state.png" alt="Process lifecycle">
+	</p>
