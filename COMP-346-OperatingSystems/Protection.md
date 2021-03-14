@@ -1,4 +1,6 @@
 # Protection
+<hr>
+
 Gotta protect programs from each other and also protect the OS from the programs. That relies on the 
 
 ### CPUs support a low level language:

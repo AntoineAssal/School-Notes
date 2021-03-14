@@ -1,4 +1,5 @@
 # Context Switch
+<hr>
 
 When a [[Process]] is being executed, if an [[Interrupts]] occurs, or a process with higher privilege comes, then that particular process has to stop it's execution, allow the process that's interrupting to execute, then it can resume. 
 
@@ -27,3 +28,12 @@ In the above diagram the following happens:
 5.  Again interrupt or system call appears
 6.  `Process 2` is saved into `PCB 2` and `process 1` loaded from `PCB 1`
 7.  `Process 1` is executed
+
+<hr>
+
+## Fancier version
+A context switch is the step required to move a [[Process]] between the `run` and `ready` [[Process Queues]]. The context switch is an essential feature of a multitasking operating system so that multiple processes can share a single CPU resource. 
+In a context switch, the state of the first process must be saved so that when the scheduler CPU resource gets back to the execution of the first process, it can restore this state and continue. The state of the process includes all the registers that the process may be using, especially the program counter, plus any other operating system specific data that may be necessary. 
+The state from the running process is stored into the process control block. After this completes, the state for the process to run next is loaded from its own PCB and used to set the PC, registers, etc.
+At that point, the second process can begin executing.
+>Context switches are computationally intensive since register and memory state must be saved and restored. Much of the design of operating systems is to optimize the use of context switches since they can occur 10 to 1000 times per second in modern operating systems. Context switches occur when processes change to the wait queue for I/O, due to interrupt handling, and for user and kernel mode switching.

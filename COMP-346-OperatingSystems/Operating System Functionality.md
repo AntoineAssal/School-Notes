@@ -33,7 +33,7 @@ OS Service| Hardware support
 [[Protection]]  | Kernel/user mode, base/limit register
 [[Interrupts]] |Interrupt vectors
 [[System calls]] | Trap instructions and trap vectors
-[[I/O]]| Interrupts and memory mapping
+[[IO]]| Interrupts and memory mapping
 [[Scheduling]], error recovery, accounting |Timer
 [[Synchronization]] | Atomic instructions 
 [[Virtual Memory]] | Translation look-aside buffers

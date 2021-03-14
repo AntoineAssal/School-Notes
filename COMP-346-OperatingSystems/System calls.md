@@ -1,6 +1,7 @@
 # System calls
+<hr>
 
-`System calls` provide an interface to the services that are available by the system.  Most programs execute in `user mode`. Sometimes a [[program]] will need access to services that only the `kernel` can run because of [[Protection]]. 
+`System calls` provide an interface to the services that are available by the system.  Most programs execute in `user mode`. Sometimes a [[Program]] will need access to services that only the `kernel` can run because of [[Protection]]. 
 `System calls` are the programmatic way in which a computer program requests a service from the kernel of the operating system.
 So when that happens, the program runs a `system call` asking the Operating system for resources, switching the mode bit from `user` to `kernel` bit. 
 This switch is known as a [[Context Switch]]
