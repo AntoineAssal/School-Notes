@@ -21,7 +21,8 @@ The address space is divided into 3 segments:
 	<img src="https://i.imgur.com/DYLBHgp.png" alt="Process layout2">
 </p>
 
-
+This process layer in memory is managed by a set of [[Registers]].
+<hr>
 
 ## Process Creation
 `exec` replaces the child image. Loads new program and start from first instruction
@@ -36,6 +37,7 @@ return value in the `parent` process is the `PID` of the newly-created child pro
 The `fork` operation creates a separate address space for the `child`. The `child` process has an **exact copy of all the memory segments of the parent process,** but if copy-on-write semantics are implemented actual physical memory may not be assigned (i.e., both processes may share the same physical memory segments for a while). Both the parent and child processes possess the same code segments, but execute independently of each other.
 The child process usually calls the `exec` function to allow it to start a new application or function. The `exec` functions of Unix-like operating systems are a collection of functions that causes the running process to be completely replaced by the program passed as an argument to the function. As a new process is not created, the processID (`PID`) does not change, but the data, heap and stack of the calling process are replaced by those of the new process. 
 In the `execl`, `execlp`, `execv`, and `execvp` calls, the `child` process inherits the `parent`’s environment. The `parent` process, after creating the `child` process, may issue a `wait` system call, which suspends the execution
+<hr>
 
 ## Process Termination
 
@@ -43,6 +45,7 @@ On process termination, the OS reclaims all resources assigned to the process. I
 > If a process is `killed`, its child processes may or may not be killed. 
 > If they are not, then they will be assigned a new parent process. 
 > Either a "grand parent" process or the `Init` process.
+<hr>
 
 ## State of a Process
 The state of a process consists of:
@@ -54,8 +57,14 @@ The state of a process consists of:
 - value of CPU registers,
 -  set of OS resources in use (list of open files etc),
 -  the current process execution state (new, ready, running etc)
+
+<hr>
+
 ## Process Lifecycle
 <p align="center">
 	<img src="https://zitoc.com/wp-content/uploads/2019/02/process-state.png" alt="Process lifecycle">
 </p>
+
 I'll include more information about that in [[Process Execution States]]
+
+<hr>

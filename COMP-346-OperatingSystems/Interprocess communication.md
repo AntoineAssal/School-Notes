@@ -14,5 +14,7 @@ The method of `IPC` used may vary based on the bandwidth and latency.
 		 alt="IPC">
 </p>
 
+<hr>
+
 ## Producer and Consumer 
 The producer and consumer problem is one where two processes must coordinate to exchange data. In this system, a producer process is periodically creating new data elements and consumer process is waiting for these data items to be created and is using them for some other task. In order for this system to function, the producer and consumer require a communication process to allow them to coordinate when the producer has created a new item so that the consumer can successfully read the data. Such a system can be built using either message passing or a shared memory approach

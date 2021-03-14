@@ -8,7 +8,7 @@ Doing many things simultaneously. (I/O operations, multiple programs running, pr
 - Several users work at the same time as if each user has their own private machine.
 - **[[Thread]]** - A CPU can run one thread at a time, but many threads are active concurrently.
 >The OS needs to able to coordinate running these things together and give the abstraction that every user has the machine to themselves.
-## I/O Devices
+## [[IO]] Devices
 Let the CPU work while a slow I/O device is working.
 ## Memory management
 OS coordinates allocation of memory and moving data between disk and main memory.
@@ -30,11 +30,11 @@ history teacher | learning from past to predict the future, i.e., OS design trad
 ## What Hardware is responsible which feature?
 OS Service| Hardware support
 :----------------|-------------:
-[[Protection]]  | Kernel/user mode, base/limit register
-[[Interrupts]] |Interrupt vectors
-[[System calls]] | Trap instructions and trap vectors
-[[IO]]| Interrupts and memory mapping
-[[Scheduling]], error recovery, accounting |Timer
+[[Protection]]  | Kernel/user mode [[Context Switch]], base/limit [[Registers]]
+[[Interrupts]] |Interrupts vectors
+[[System calls]] | [[Trap]] instructions and trap vectors
+[[IO]]| [[Interrupts]] and [[IO#3 Memory-mapped]]
+[[Scheduling]], error recovery, accounting |[[Timer]]
 [[Synchronization]] | Atomic instructions 
 [[Virtual Memory]] | Translation look-aside buffers
 

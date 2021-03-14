@@ -1,7 +1,8 @@
 # System calls
 <hr>
 
-`System calls` provide an interface to the services that are available by the system.  Most programs execute in `user mode`. Sometimes a [[Program]] will need access to services that only the `kernel` can run because of [[Protection]]. 
+`System calls` provide an interface to the services that are available by the system.  Most programs execute in `user mode`.
+Sometimes a [[Program]] will need access to services that only the `kernel` can run because of [[Protection]]. 
 `System calls` are the programmatic way in which a computer program requests a service from the kernel of the operating system.
 So when that happens, the program runs a `system call` asking the Operating system for resources, switching the mode bit from `user` to `kernel` bit. 
 This switch is known as a [[Context Switch]]
@@ -65,3 +66,23 @@ All the information about the system are updated and maintained by the OS.
 `send.message`, `recieve.message`
 Processes often need to communicate with each other. So they need to have a connection to exchange information and statuses. The OS handles this communication because of [[Protection]]
 <hr>
+
+## Standard C library example
+```c
+#include <stdio.h>
+int main() {
+	•
+	•
+	printf("Hello");
+	•
+	•
+	return 0;
+}
+```
+This `C` program invokes `printf()` call, which calls `write()` system call. So when that system call is issued a [[Trap]] is raised, so we jump from `user` to `kernel` mode. The `kernel` then runs the system call and returns it to the `C` library, which then returns it to the program.
+
+## System Call implementation
+Generally every system call has some identifying number. Internally the OS has a lookup table with all these `ints` to maintain the indexes.
+The caller doesn't need to know anything about how the system call works or is implemented (in fact they're mostly hidden from the programmer by an `API`), so just need to obey the `API` rules and understand what the consequence of a certain call is.
+
+## System Call Parameter Passing

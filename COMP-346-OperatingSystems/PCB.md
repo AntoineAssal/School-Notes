@@ -9,10 +9,11 @@ It's architecture depends on the Operating System and may contain different info
 
 ## What does the PCB Look like
 <p align="center">
-	<img src="https://zitoc.com/wp-content/uploads/2019/02/process-control-block-PCB.png"alt="Linux architecture">
+	<img src="https://zitoc.com/wp-content/uploads/2019/02/process-control-block-PCB.png"alt="Process Control Block">
 </p>
 
-This `PCB` is created when a new process is created. It also includes other information such as `Priority` and `CPU Scheduling info`. Some of these fields are updated when process state is changed, such as `memory mapping`. Other fields are constantly updated like the `Program Counter`.
+This `PCB` is created when a new process is created. It also includes other information such as `Priority` and `CPU Scheduling info`. Some of these fields are updated when process state is changed, such as `memory mapping`. Other fields are constantly updated like the `Program Counter` explained in [[Registers#Types of Registers in a typical architecture]].
 
- ## The PCB is used in [[Context Switch]]
- 
+ >The PCB is used in [[Context Switch]].
+ To store all the data for the CPU to know how to resume operating after the switch.
+ <hr>
