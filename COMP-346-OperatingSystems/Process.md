@@ -6,6 +6,18 @@ An instance of an executing [[Program]]. A process is an active entity as it is 
 > A Process is a dynamic instance of a computer program that is being sequentially executed by a computer that has the ability to run several computer programs concurrently.
 
 >Several processes may be associated with the same program; for example,opening up several windows of the same program typically means more than one process is being executed.
+## State of a Process
+The state of a process consists of at least:
+- code for the running program, 
+- its static data, 
+- its heap and the heap pointer (HP) where dynamic data is kept,
+- program counter, 
+- stack and the stack pointer, 
+- value of CPU registers,
+-  set of OS resources in use (list of open files etc),
+-  the current process execution state (new, ready, running etc)
+
+<hr>
 
 ## What does a Process look like?
 <p align="center">
@@ -22,7 +34,41 @@ The address space is divided into 3 segments:
 </p>
 
 This process layer in memory is managed by a set of [[Registers]].
+### Example Process in Memory
+```c
+void X(int b){
+	if (b==1)...
+}
+main(){
+	int a = 2;
+	X (a);
+}
+```
+<p align="center">
+	<img src="https://i.imgur.com/A2N6Vqd.png" alt="Process in memory">
+</p>
+
+This is what it actually looks like in the memory. So the code of the program is loaded into the bottom part,`text` segment. The program counter `PC` is pointing to the next instruction 
+
 <hr>
+
+## Process Lifecycle
+<p align="center">
+	<img src="https://zitoc.com/wp-content/uploads/2019/02/process-state.png" alt="Process lifecycle">
+</p>
+
+State| Description
+:----------------|-------------:
+*`new`* | First start up. The OS is setting up the process but its not running yet.
+*`running`*|Actively executing instructions on the CPU.
+*`ready`* | Ready to run. Not actually running/executing anything.
+*`waiting`*| Can't continue, waiting for some event to happen.
+*`terminated`*|Finished, the OS can destroy data now.
+
+I'll include more information about that in [[Process Execution States]]
+
+<hr>
+
 
 ## Process Creation
 `exec` replaces the child image. Loads new program and start from first instruction
@@ -47,24 +93,5 @@ On process termination, the OS reclaims all resources assigned to the process. I
 > Either a "grand parent" process or the `Init` process.
 <hr>
 
-## State of a Process
-The state of a process consists of:
-- code for the running program, 
-- its static data, 
-- its heap and the heap pointer (HP) where dynamic data is kept,
-- program counter, 
-- stack and the stack pointer, 
-- value of CPU registers,
--  set of OS resources in use (list of open files etc),
--  the current process execution state (new, ready, running etc)
 
-<hr>
 
-## Process Lifecycle
-<p align="center">
-	<img src="https://zitoc.com/wp-content/uploads/2019/02/process-state.png" alt="Process lifecycle">
-</p>
-
-I'll include more information about that in [[Process Execution States]]
-
-<hr>
