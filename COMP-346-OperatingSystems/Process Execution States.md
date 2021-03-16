@@ -9,3 +9,13 @@ When a process is first started/created, it is in `new` state. It needs to wait 
 </p>
 
 If a process needs to `wait` for a resource (such as waiting for user input, or waiting for a file to become available), it is moved into the waiting state until it no longer needs to wait - then it is moved back into the `ready` state. Once the process finishes execution, or is terminated by the operating system, it is moved to the `terminated` state where it waits to be removed from the main memory. The OS manages multiple active processes using [[Process Queues]].
+
+>**Question:** How would a process arrive in the `ready`queue?
+>**Answer**:   End of `I/O` operations. [[Interrupts]]. Picked up by [[Scheduling]]. After a `fork()`
+>
+<p align="center">
+	<img src="https://cdn.discordapp.com/attachments/308462534082428938/820798938343800832/unknown.png" alt="fork ready">
+</p>
+
+### So what is the OS actually storing for each [[Process]]?
+The main data structure used to keep track of every process is the [[PCB]].

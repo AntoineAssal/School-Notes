@@ -3,7 +3,7 @@
 
 ## What is the PCB
 
-A data structure maintained by the operating system for **every process**. It is identified by an integer `PID`. 
+A data structure maintained by the operating system for **every process**. It is identified by an integer `PID` to identify it and distinguish it from other processes.  Tracks
 
 It's architecture depends on the Operating System and may contain different information, below is a simple example.
 
@@ -17,3 +17,6 @@ This `PCB` is created when a new process is created. It also includes other info
  >The PCB is used in [[Context Switch]].
  To store all the data for the CPU to know how to resume operating after the switch.
  <hr>
+
+## Task manager 
+So when we open task manager. All it's doing is reading the information from the `PCB`s and displaying it here.
