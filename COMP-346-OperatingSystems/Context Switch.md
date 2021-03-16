@@ -35,6 +35,11 @@ In the above diagram the following happens:
 A context switch is the step required to move a [[Process]] between the `run` and `ready` [[Process Queues]]. The context switch is an essential feature of a multitasking operating system so that multiple processes can share a single CPU resource. 
 In a context switch, the state of the first process must be saved so that when the scheduler CPU resource gets back to the execution of the first process, it can restore this state and continue. The state of the process includes all the registers that the process may be using, especially the program counter, plus any other operating system specific data that may be necessary. 
 The state from the running process is stored into the process control block. After this completes, the state for the process to run next is loaded from its own PCB and used to set the PC, registers, etc.
+
+<p align="center">
+	<img src="https://i.imgur.com/xhWySmi.png" alt="Context Switch">
+</p>
+
 At that point, the second process can begin executing.
 >Context switches are computationally intensive since register and memory state must be saved and restored. Much of the design of operating systems is to optimize the use of context switches since they can occur 10 to 1000 times per second in modern operating systems. Context switches occur when processes change to the wait queue for I/O, due to interrupt handling, and for user and kernel mode switching.
 
