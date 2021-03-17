@@ -25,12 +25,19 @@ Additionally, since all threads are within a single process, if on thread has a 
 When comparing processes and threads, we can also analyze the context switch cost. 
 *Whenever it is needed to switch between two processes, we must invalidate the TLB cache which can be a slow operation. When we switch between two threads, on the other hand, it is not needed to invalidate the TLB because all threads share the same address space, and thus have the same contents in the cache. Thus the cost of switching between threads is much smaller than the cost of switching between processes.*
 
+#### Summary of differences 
+<p align="center">
+	<img src="https://i.imgur.com/cMZCRO6.png" alt="ProcessVSThread">
+</p>
+
+## Kernel and User Threads
+Threads can either be created as `kernel` threads or `user-level` threads.
 
 
 
 ## Single and Multi-threaded Processes
 <p align="center">
-	<img src="https://i.imgur.com/uZHDJUC.png" alt="Registers">
+	<img src="https://i.imgur.com/uZHDJUC.png" alt="Multithread">
 </p>
 
 So far when speaking about Processes we implicitly defined them as having one thread only `single-threaded`. When looking at he `multi-threaded` process on the right, the base is the same. We still have the same PCB containing the `code`, `data` and `files`. The difference is a new set of [[Registers]] , stacks and Program counters (which are parts of the process relating to the given thread) that are associated with each running thread.
@@ -104,10 +111,14 @@ public class Second {
 ```java
 try {  
        Thread.sleep(200); // 200 milliseconds  
-    } catch (InterrupedException ie) { }
+    } catch (InterrupedException e) 
 ```
 -   The program runs as a thread, so this can be put  anywhere
 -   If there are multiple threads, another thread may take over while you’re sleeping.
+
+`void wait()`
+- Calling this forces the current thread to wait until some other thread invokes `notify()` or `notifyAll()` on the same object.
+- We can specify a timeout after which the thread will be woken up automatically instead of `notify` by using `wait(long timeout)` overloaded signature. `wait()`is`wait(0)`.
 
 `void join() `
 -   Calling thread suspends until given thread has completed
@@ -121,10 +132,18 @@ try {
 
 ## Thread States
 <p align="center">
-	<img src="https://www.baeldung.com/wp-content/uploads/2018/02/Java_-_Wait_and_Notify.png">
+	<img src="https://i0.wp.com/howtodoinjava.com/wp-content/uploads/2016/04/Java-Thraed-Life-Cycle-States.jpg?w=625&ssl=1">
 </p>
 
 
+States | Description
+------------ | ------------
+`NEW` |Here as soon as the thread is created, until the program starts this thread using `start()`
+`RUNNABLE` | Gets here once started. While in this state it can 
+`BLOCKED`| If a thread needs to perform that cant be completed immediately. Like an `I/O`operation, the OS will block the thread until the request is complete, then put it back in `RUNNABLE`. A blocked thread cannot use a processor, even if one is available.
+`WAITING` | A thread can be put in waiting state for various reasons e.g. calling it’s `wait()` method. Usually program put a thread in WAIT state because something else needs to be done prior to what current thread is doing.
+`TIMED_WAITING` | 
+`TERMINATED` | 
 ## [[Concurrency]] vs Parallelism
 
 https://i.imgur.com/Lq8k4Bv.png
