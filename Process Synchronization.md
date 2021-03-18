@@ -75,7 +75,7 @@ alt="Critical section elements">
 	- Process signals the completion of its critical section.
 	- Another process should now be permitted to enter in the critical section.
 - **Remainder Section**: 
-	- Process is/can still execute code that is independent of the shared resourcesS.
+	- Process is/can still execute code that is independent of the shared resources.
 #### Critical Section Requirements
 A solution to the critical-section problem must satisfy the following three requirements:
 1. **Mutual Exclusion**
@@ -91,7 +91,15 @@ A solution to the critical-section problem must satisfy the following three requ
 	>So when one process already made a request and is waiting for approval to execute in its `critical section`, there has to be a limit on the number of times that other processes can execute their `critical sections.`
 	>This is in place to avoid starvation.
 
+
+<hr>
+
+
 ## Peterson's Solution
+
+
+<hr>
+
 
 
 ## Test and Set Lock
@@ -110,16 +118,83 @@ boolean TestAndSet(boolean *target) {
 ```
 **Atomic Operation:** This happens as a single operation that will run uninterrupted and independently of any other processes.
 
-Consider Process $P_1$:
+Consider Process **$P_1$**
 ```c
 do {
 	while (TestAndSet(&lock));
-	// do nothing
+	// do nothing in loop
 	critical_section
 	lock = FALSE;
 	// remainder code
 } while (TRUE);
 ```
-The lock variable is always `0` initially
+- The lock variable is always `0` initially. 
+- When Process $P_1$ wants to run the critical section we start by calling `TestAndSet(0)`.
+- That will return `0`. 
+- So it becomes `while(0)` causing the loop to break control so $P_1$ now enters the critical section.
+- Once the critical section is completed, $P_1$ will set `lock=FALSE` and runs whatever it has to do.
 
-Consider Process $P_2$:
+Now what if we have another process $P_2$ trying to enter the critical section at the same time.
+
+Consider Process **$P_2$**
+```c
+do {
+	while (TestAndSet(&lock));
+	// do nothing in loop
+	critical_section
+	lock = FALSE;
+	// remainder code
+} while (TRUE);
+```
+- When Process $P_2$ wants to run the critical section we start by calling `TestAndSet(&lock)`
+> **What is the value of the lock now?**
+> Lock is now 1 because when $P_1$ called `TestAndSet(0)` it set 	`*target = TRUE;` so now $P_2$ calls `TestAndSet(1)`.
+- That will return `1`. 
+- So it becomes `while(1)` causing the loop to keep looping there, so $P_2$ will not be able to get in the critical section, until/unless $P_1$ exits.
+
+
+
+<hr>  
+
+## Semaphores
+A technique to manage concurrent processes by using a simple integer value, known as a semaphore.
+#### What is a Semaphore?
+- Simply it is a variable which is non-negative and shared between threads.
+- This variable is used to solve the critical section problem and achieve process synchronization in the multi-processing environment.
+- A semaphore $S$ is an integer variable that, apart from initialization, is accessed only through two standard atomic operations `wait()` and `signal()`.
+	- `wait()` -> $P$ from `proberen`, which means "to test"
+	- `signal()` -> $V$ from `verhogen`, which means "to increment"
+
+#### Definition of `wait()`
+```c
+P(Semaphore S){
+	while (S <= 0)
+	;
+	S--;
+}
+```
+- First check if S is less than or equal to `0`. If it is then keep looping
+- When it's not, break out of the loop and decrement `S`.
+
+As explained, the Semaphore S, will be shared among processes. So when one process wants to access a resource or run a critical section. This variable will decide who gets to do that. For example, when S is less than or equal to 0, then we know that some process is already in the critical section. So at that time no other processes should be allowed to get there. Once it's done, it decrements the value of S, depending on the value, other processes may now enter the critical section.
+
+#### Definition of `signal()`
+```c
+V(Semaphore S){
+	S++;
+}
+```
+- Just increment S
+- This will be called, when the process that made use of a semaphore to enter the critical section completes its whole operation.
+- Indicates that the process has completed using the semaphore and releases.
+>All the modifications to the integer value of the semaphore in the `wait()` and `signal()` operations must be executed indivisibly.
+>That is, when one process modifies the semaphore value, no other process can simultaneously modify that same semaphore value.
+
+### Types of Semaphores
+1. **Binary Semaphores:**
+The value of a binary semaphore can range only between 0 and 1. On some systems, binary semaphores are also known as mutex locks. As they are locks that provide mutual exclusion.
+
+1. **Counting Semaphores:**
+Its value can range over an unrestricted domain. It is used to control access to a resource that has multiple instances..
+
+
