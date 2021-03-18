@@ -136,4 +136,4 @@ On process termination, the OS reclaims all resources assigned to the process. I
 
 ## Process cooperation
 Processes are either independent or cooperating. They can work together to accomplish a single task, and depend on each other. An example is `Apache Web Server`. The way it works is by having a `main` process that listens for web requests and there's a bunch of `worker` processes who handle different pieces of work upon receiving a request. In order to make that work, the OS needs to have a mechanism for [[Interprocess communication]].
-Classic example of this is the [[Producer Consumer Problem]]
+Classic example of this is the [[Producer Consumer Problem]]. Concurrent access to shared data may result in data inconsistency. Which is why we need [[Process Synchronization]].

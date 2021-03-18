@@ -31,7 +31,10 @@ When comparing processes and threads, we can also analyze the context switch cos
 </p>
 
 ## Kernel and User Threads
-Threads can either be created as `kernel` threads or `user-level` threads.
+There are two ways to manage our threads. Threads can either be created as `kernel` threads or `user-level` threads. 
+`kernel thread:` The kernel is responsible of handling the threads and [[Context Switch]] (much faster and less intensive operation compared to doing it with processes. A lot of the information is the same so changing the couple registers is very cheap). 
+A `kernel` thread is known also as a `lightweight process`.
+
 
 
 
@@ -46,6 +49,11 @@ So far when speaking about Processes we implicitly defined them as having one th
 
 ## Thread Models
 
+
+
+
+> **Question:** What is the benefit of having the extra one user-kernel thread in the Two Level Model compared to the Many to Many Model.
+> **Answer:** More flexibility. Also programs that are intensive in system calls can have a one to one with a kernel thread. Therefore, its not constantly using a thread that would bu in a queue (a many-to-many queue)
 ## Thread Creation in Java
 ```java
 class Worker1 extends Thread {
@@ -53,14 +61,12 @@ class Worker1 extends Thread {
 		System.out.println("I'm a worker thread");
 	}
 }
-
 public class First {
 	public static void main(String args[]){
 		Worker1 runner = new Worker1();
 		runner.start();
 		System.out.println("I'm the main thread");
 	}
-
 }
 ```
 
@@ -78,7 +84,6 @@ class Worker2 implements Runnable {
 		System.out.println("I'm a worker thread");
 	}
 }
-
 public class Second {
 	public static void main(String args[]){
 		Runnable runner = new Worker2();
@@ -141,8 +146,8 @@ States | Description
 `NEW` |Here as soon as the thread is created, until the program starts this thread using `start()`
 `RUNNABLE` | Gets here once started. While in this state it can 
 `BLOCKED`| If a thread needs to perform that cant be completed immediately. Like an `I/O`operation, the OS will block the thread until the request is complete, then put it back in `RUNNABLE`. A blocked thread cannot use a processor, even if one is available.
-`WAITING` | A thread can be put in waiting state for various reasons e.g. calling it’s `wait()` method. Usually program put a thread in WAIT state because something else needs to be done prior to what current thread is doing.
-`TIMED_WAITING` | 
+`WAITING` | A thread can be put in waiting state for various reasons e.g. calling it’s `wait()` method. Usually program put a thread in WAIT state because something else needs to be done prior to what current thread is doing. Can be here by using `join` too.
+`TIMED_WAITING` | The thread is waiting by using `sleep`, `wait`, `join`. (The difference from `WAITING` state is that the maximum waiting time is specified by the method parameter and `WAITING` can be relieved by time as well as external changes)
 `TERMINATED` | 
 ## [[Concurrency]] vs Parallelism
 

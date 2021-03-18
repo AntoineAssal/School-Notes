@@ -34,19 +34,6 @@ Consider the following sequence of execution with [[Thread]]A and B:
 In this Race condition example, the `withdraw()` method is not *thread-safe.*
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
 Just because you carefully synchronize methods, that doesn't mean bad things cannot happen in a multi-threaded environment! Consider this sequence:
 
 -   Thread A gets lock on object 1
