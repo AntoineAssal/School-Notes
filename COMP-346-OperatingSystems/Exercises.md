@@ -6,24 +6,31 @@
 ### Question 1 
 >What are the main differences between the `user vs kernel threads` models? Which one of these models is likely to trash the system if used without any constraints?
 
+`User-Level Thread`| `Kernel Thread`|
+------------ | ------------
+Implemented by the user | Implemented by OS
+Not recognized or managed by the OS | Recognized and managed by OS
+No hardware support is required for a `context switch` because of `PCB`| `Context switch` requires hardware support
+`Context switch` not often used | Very frequent use of `context switch`.
+Blocked if it stops executing.| Another thread keeps running if blocked.
+
+<hr>
+
+
 ### Question 2
 >Why `threads` are referred to as `“light-weight” processes`? What resources are used when a `thread` is created? How do they differ from those used when a `process` is created?
+
+<hr>
+
 
 ### Question 3
 >Does `shared memory` provide faster or slower interactions between `user processes`? 
 >Under what conditions is shared memory not suitable at all for `inter-process communications`?
 
+`Shared memory` provides faster interaction between `user processes` because it doesn't need to reload the same memory. `Shared memory` would not be suitable as a `inter-process-communication` technique if the processes in question share no common data to begin with.
 
 
-
-
-
-
-
-
-
-
-
+<hr>
 
 
 ### Question 4
@@ -96,12 +103,18 @@ if $B$ -> `wait(goB=0)`
 if $C$ -> `wait(goC=0)`
 Then, $A$ -> `signal(goB=0)` but its stuck waiting for the mutex.
 
+==TLDR; All three processes get permanently blocked if $C$ starts first. Because it will get blocked and the two other processes will never have the `mutex` because $C$ has it.==
+
 **ii) Precisely two processes block permanently.**
 
-if $A$ gets the mutex first, signal(goB) then releases it. The intended order would be for $B$ to grab the mutex. But if $C$ gets it instead then $C$ will be blocked waiting on `goC` which can only be signaled by $B$ (but B is waiting on the mutex that now C is holding). So both $B$ and $C$ will be permanently blocked.
+if $A$ gets the `mutex` first, `signal(goB)` then releases it. The intended order would be for $B$ to grab the mutex. But if $C$ gets it instead then $C$ will be blocked waiting on `goC` which can only be signaled by $B$ (but B is waiting on the mutex that now C is holding). So both $B$ and $C$ will be permanently blocked.
+
+==TLDR; Two processes are blocked permanently when $A$ starts -> $A$ finishes ->$ C$ starts -> $C$ gets blocked. $B$ and $C$ are permanently blocked.==
 
 **iii) No process blocks permanently.**
-If A goes first signals goB and releases, then B grabs goB, signals goC and releases. Then C grabs it and releases. They will all run as intended without being blocked.
+If $A$ goes first `signals` `goB` and `releases`, then $B$ `grabs` `goB`, `signals` `goC` and `releases`. Then $C$ `grabs` it and `releases`. They will all run as intended without being blocked.
+
+==TLDR; No process is blocked when $A$ starts -> A finishes -> B starts-> B finishes -> C starts -> C finishes.==
 ___
 > Consider a modified example with only two `processes`.
 > Let $m>n$. 
@@ -111,8 +124,6 @@ ___
 > What if we let $m<n$.is there a possible execution scenario in which 
 > **i)** both processes block permanently?
 > **ii)** neither process blocks permanently?
-
-
 
 **Process A **
 ```java
@@ -141,6 +152,8 @@ If $m>n$ and $B$ gets mutex, before $A$ even starts
 then we get $B$ -> `wait(goB=0)`
 Then, $A$ -> `signal(goB=0)` but its stuck waiting for the mutex. So both will be stuck waiting.
  
+ ==TLDR; Both get permanently blocked if $B$ starts -> keeps waiting on `signal(goB)` from $A$, but $A$ never runs.==
+ 
 **ii) No process blocks permanently.For $m>n$**
 
 So process $A$ will run first and signals process $B$ for $m$ many times, then $B$ will grab $n$ out of them and run successfully. 
@@ -155,6 +168,12 @@ Then, $A$ -> `signal(goB=0)` but its stuck waiting for the mutex. So both will b
 Nope. if $m<n$, process $B$ will always be blocked because for it to iterate $n$ times it needs at least $n$ `goB` signals. So it will always get stuck on the $(m+1)$th run.
 
 ## Question 5
+>In a **swapping/relocation system**, the values assigned to the $<base, limit>$ `register` pair prevent one `user process` from writing into the `address space` of another user process. 
+>However, these assignment operations are themselves `privileged` instructions that can only be executed in `kernel mode`.
+>
+>Is it conceivable that some operating-system `processes` might have the entire main memory as their `address space`? If this is possible, is it necessarily a bad thing? Explain.
+
+This is from memory management probably wont be on midterm.
 
 ## Question 6
 > Sometimes it is necessary to synchronize two or more processes so that all process must finish their first phase before any of them is allowed to start its second phase. 
@@ -187,3 +206,13 @@ P (s1)
 
 
 **b)** Give the solution if the following rule is added: after all processes finish their first phase, phase I, they must execute phase II in order of their number; that is P1, then P2 and finally P3
+
+## Question 7
+> Generally, both $P$ and $V$ operations must be implemented as a` critical sections`.
+> Are there any cases when any of these two operations can safely be implemented as a `non-critical section`? 
+> If yes, demonstrate through an example when/how this can be done without creating any violations.
+> If no, explain why these operations must always be implemented as `critical sections.`
+
+## Question 8
+
+> What is the potential problem of `multiprogramming`?
