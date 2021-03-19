@@ -3,3 +3,187 @@
 
 
 # Practice from Theory Assignments
+### Question 1 
+>What are the main differences between the `user vs kernel threads` models? Which one of these models is likely to trash the system if used without any constraints?
+
+### Question 2
+>Why `threads` are referred to as `“light-weight” processes`? What resources are used when a `thread` is created? How do they differ from those used when a `process` is created?
+
+### Question 3
+>Does `shared memory` provide faster or slower interactions between `user processes`? 
+>Under what conditions is shared memory not suitable at all for `inter-process communications`?
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+### Question 4
+
+>Consider three `concurrent processes` $A$, $B$ and $C$,  synchronized by three `semaphores` $mutex, goB, goC$ , 
+
+Reminder of semaphore wait and signal definitions :
+#### Definition of `wait()`
+```c
+P(Semaphore S){
+	while (S <= 0)
+	;
+	S--;
+}
+```
+- First check if S is less than or equal to `0`. If it is then keep looping
+- When it's not, break out of the loop and decrement `S`.
+
+#### Definition of `signal()`
+```c
+V(Semaphore S){
+	S++;
+}
+```
+- Just increment S
+- This will be called, when the process that made use of a semaphore to enter the critical section completes its whole operation.
+- Indicates that the process has completed using the semaphore and releases.
+>All the modifications to the integer value of the semaphore in the `wait()` and `signal()` operations must be executed indivisibly.
+>That is, when one process modifies the semaphore value, no other process can simultaneously modify that same semaphore value.
+
+
+**Process A **
+```#
+wait (mutex)
+...
+signal (goB)
+...
+signal (mutex)
+```
+
+**Process B **
+```#
+wait (mutex)
+...
+wait (goB)
+signal (goC)
+...
+signal (mutex)
+```
+
+**Process C **
+```#
+wait (mutex)
+...
+wait (goC)
+...
+signal (mutex)
+```
+
+The semaphores are initialized to `mutex = 1`, `goB = 0`, and `goC = 0` respectively.
+
+Give possible execution scenario where : 
+
+**i) All three processes block permanently.**
+
+To break it we need Process $B$ or $C$ to get the `mutex` first then they'll be stuck waiting on `goB` and `goC`. Then Process $A$ signals `goB` and keep waiting for the mutex. Doing that, none of them will get to release it, blocking them permanently.
+
+So $B \vee C$ gets mutex
+if $B$ -> `wait(goB=0)`
+if $C$ -> `wait(goC=0)`
+Then, $A$ -> `signal(goB=0)` but its stuck waiting for the mutex.
+
+**ii) Precisely two processes block permanently.**
+
+if $A$ gets the mutex first, signal(goB) then releases it. The intended order would be for $B$ to grab the mutex. But if $C$ gets it instead then $C$ will be blocked waiting on `goC` which can only be signaled by $B$ (but B is waiting on the mutex that now C is holding). So both $B$ and $C$ will be permanently blocked.
+
+**iii) No process blocks permanently.**
+If A goes first signals goB and releases, then B grabs goB, signals goC and releases. Then C grabs it and releases. They will all run as intended without being blocked.
+___
+> Consider a modified example with only two `processes`.
+> Let $m>n$. 
+> In this case, is there a possible execution scenario in which 
+> **i)** both processes block permanently?
+> **ii)** neither process blocks permanently?
+> What if we let $m<n$.is there a possible execution scenario in which 
+> **i)** both processes block permanently?
+> **ii)** neither process blocks permanently?
+
+
+
+**Process A **
+```java
+for(i = 0 ; i < m ; i++){
+	wait(mutex);
+	...
+	signal (goB)
+	...
+	signal (mutex)
+	}
+```
+
+**Process B **
+```java
+for(i = 0 ; i < n ; i++){
+	wait(mutex);
+	...
+	signal (goB)
+	...
+	signal (mutex)
+	}
+```
+**i) All  processes block permanently. For $m>n$**
+Same thing? 
+If $m>n$ and $B$ gets mutex, before $A$ even starts
+then we get $B$ -> `wait(goB=0)`
+Then, $A$ -> `signal(goB=0)` but its stuck waiting for the mutex. So both will be stuck waiting.
+ 
+**ii) No process blocks permanently.For $m>n$**
+
+So process $A$ will run first and signals process $B$ for $m$ many times, then $B$ will grab $n$ out of them and run successfully. 
+
+**i) All  processes block permanently. For $m<n$**
+Same thing? 
+Even If $m<n$ and $B$ gets mutex, before $A$ even starts
+then we get $B$ -> `wait(goB=0)`
+Then, $A$ -> `signal(goB=0)` but its stuck waiting for the mutex. So both will be stuck waiting.
+
+**ii) No process blocks permanently.For $m<n$**
+Nope. if $m<n$, process $B$ will always be blocked because for it to iterate $n$ times it needs at least $n$ `goB` signals. So it will always get stuck on the $(m+1)$th run.
+
+## Question 5
+
+## Question 6
+> Sometimes it is necessary to synchronize two or more processes so that all process must finish their first phase before any of them is allowed to start its second phase. 
+> For two processes, we might write: `semaphore` $s1 = 0, s2 = 0$ 
+```
+process P1 {
+<phase I>
+V (s1)
+P (s2)
+<phase II>
+}
+```
+
+```
+process P2 {
+<phase I>
+V (s2)
+P (s1)
+<phase II>
+}
+```
+<p align="center">
+	<img src="https://i.imgur.com/DD9wxmk.png" alt="Tutorial 4a">
+</p>
+
+
+
+**a)** Give a solution to the problem for three processes $P1$, $P2$, $P3$.
+
+
+
+**b)** Give the solution if the following rule is added: after all processes finish their first phase, phase I, they must execute phase II in order of their number; that is P1, then P2 and finally P3

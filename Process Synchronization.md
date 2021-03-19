@@ -198,3 +198,5 @@ The value of a binary semaphore can range only between 0 and 1. On some systems,
 Its value can range over an unrestricted domain. It is used to control access to a resource that has multiple instances..
 
 
+## Bounded-Buffer Problem
+Also known as the Producer-Consumer Problem
