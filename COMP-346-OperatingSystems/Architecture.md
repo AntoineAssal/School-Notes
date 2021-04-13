@@ -1,7 +1,7 @@
 # Architecture
 <hr>
 
-Architecture must provide support so that the OS can protect user programs from each other and protect the OS from user programs as mentioned in [[Protection]].
+Architecture must provide support so that the OS can protect user programs from each other and protect the OS from user programs as mentioned in [Protection](Protection.md).
 <hr>
 
 ## Memory Protection
@@ -14,7 +14,7 @@ Every time the CPU checks the address to be ran and ensures it falls between the
 	<img src="https://i.imgur.com/ENw4nSS.png" alt="Memory chunks">
 </p>
 
-Suppose we didn't have `base` and `limit` [[Registers]]. We can recreate this functionality using a software check instead by using the `kernel`. The big problem with doing that is every single time we try to access an address we would have to run this "check code" which would be very expensive and cripples the speed of the computer. So adding the architectural support is more efficient. `jobs` in this diagram each represent a [[Process#What does a Process look like]]
+Suppose we didn't have `base` and `limit` [Registers](Registers.md). We can recreate this functionality using a software check instead by using the `kernel`. The big problem with doing that is every single time we try to access an address we would have to run this "check code" which would be very expensive and cripples the speed of the computer. So adding the architectural support is more efficient. `jobs` in this diagram each represent a [What does a Process look like](Process.md#What-Does-A-Process-Look-Like)
 <hr>
 
 ## Memory Hierarchy
@@ -26,7 +26,7 @@ The higher its placed on this hierarchy then the smaller it's storage capacity, 
 
 Memory Type| Description| Latency cycles
 :----------------|-------------|-------:
-[[Registers]] | Fastest and most expensive memory, tiny storage.|1-cycle 
+[Registers](Registers.md) | Fastest and most expensive memory, tiny storage.|1-cycle 
 `L1 Cache` |Tens of KiloBytes|2-cycle
 `L2 Cache` | Couple of MegaBytes cache|7-cycle
 `RAM`| Main memory|100-cycle
