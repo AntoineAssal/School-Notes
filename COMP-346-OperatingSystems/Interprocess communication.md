@@ -1,10 +1,10 @@
 # Interprocess Communication (IPC)
 <hr>
 
-Inter-Process Communication (`IPC`) is a set of techniques for the exchange of data among two or more [[Thread]]s in one or more [[Process]]es. Processes may be running on one or more computers connected by a network. 
+Inter-Process Communication (`IPC`) is a set of techniques for the exchange of data among two or more [Threads](Thread.md) in one or more [Processes](Process.md). Processes may be running on one or more computers connected by a network. 
 IPC techniques are divided into methods for
-1. [[Message Passing]]
-1. [[Synchronization]]
+1. [Message Passing](Message Passing.md)
+1. [Synchronization](Synchronization.md)
 1. [[Shared memory]]
 1. [[Remote procedure calls]]
 
