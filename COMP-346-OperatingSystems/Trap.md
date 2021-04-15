@@ -4,7 +4,7 @@
 ## What is a Trap?
 
 Traps are like `exceptions` but more centered around hardware. They're a set of special conditions that are detected by the architecture. Similar to how when there's an `exception` thrown in JAVA, the flow is changed to a piece of code to handle it. When a `trap` is issued, the `kernel` takes over to perform some necessary steps.
-1. Save the state of the [[Process]] (the `PC`, `stack`, etc..)
+1. Save the state of the [Process](Process.md) (the `PC`, `stack`, etc..)
 2. Transfer control to the appropriate `trap` handler (an OS routine that knows that to do with that `trap`), to do that, here's what the hardware does.
 - Index the memory mapped `trap vector` with the `trap number`
 - Jump to the `address` given in the `vector`
