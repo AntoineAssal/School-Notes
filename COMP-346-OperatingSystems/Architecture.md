@@ -57,6 +57,7 @@ In the context of this memory hierarchy, `RAM` is pretty slow so we rely on the 
 <p align="center">
 	<img src="https://applied-programming.github.io/Operating-Systems-Notes/images/linuxarch.png" alt="Linux architecture">
 </p>
+
 <hr>
 
 ## Layered OS Design
