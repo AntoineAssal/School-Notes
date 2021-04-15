@@ -18,7 +18,7 @@ This type of scheduling is very important for a `real-time operating system`, as
 ###  Short-Term Scheduling
 >==We're more concerned about this type of scheduling for our course==
 
-The short-term scheduler (also known as the dispatcher) decides which of the ready, in-memory processes are to be executed (allocated a CPU) next following a clock [[Interrupts]], an IO interrupt, or an operating [[System calls]]. Thus the short-term scheduler makes scheduling decisions **much more frequently than the long-term schedulers - a scheduling decision will at a minimum have to be made after every time slice, which can be as often as every few milliseconds.**
+The short-term scheduler (also known as the dispatcher) decides which of the ready, in-memory processes are to be executed (allocated a CPU) next following a clock [Interrupts](Interrupts.md), an IO interrupt, or an operating [System calls](System_calls.md). Thus the short-term scheduler makes scheduling decisions **much more frequently than the long-term schedulers - a scheduling decision will at a minimum have to be made after every time slice, which can be as often as every few milliseconds.**
 This scheduler can be `preemptive`, implying that it is capable of forcibly removing processes from a CPU when it decides to allocate that CPU to another process, or `non-preemptive,` in which case the scheduler is unable to ”force” processes off the CPU.
 
 #### When does the Short-Term Scheduler run?
@@ -32,7 +32,8 @@ This scheduler can be `preemptive`, implying that it is capable of forcibly remo
 #### Goals
 - Ensure that as many jobs are running at a time as is possible. On a single-CPU system, the goal is to keep one job running at all times.
 - `Multiprogramming` allows us to keep many jobs ready to run at all times. Although we can not concurrently run more jobs than we have available processors, we can allow each processor to be running one job, while other jobs are waiting for I/O or other events.
-- Lower the average waiting time for a process in a [[Process Execution States]]. The less time the process waits in a state queue the faster processes are gonna get scheduled.
+- Lower the average waiting time for a process in a [Process Execution States](Process_Execution_States.md). The less time the process waits in a state queue the faster processes are gonna get scheduled.
+
 #### Metrics
 Criteria| Description|
 ------------ | ------------
