@@ -8,14 +8,14 @@ The main benefits of threads is faster performance and allowing `parallelism`.
 
 
 ## What are threads?
-A thread is a sequential execution stream within a [[Process]]. This means that a single process may be broken up into multiple threads. Each thread has its own Program Counter, registers, and stack, but **they all share the same address space within the process.**
-The primary benefit of such an approach is that a process can be split up into many threads of control, allowing for [[Concurrency]] since some parts of the process continue to make progress while others are busy. 
+A thread is a sequential execution stream within a [Process](Process.md). This means that a single process may be broken up into multiple threads. Each thread has its own Program Counter, registers, and stack, but **they all share the same address space within the process.**
+The primary benefit of such an approach is that a process can be split up into many threads of control, allowing for [Concurrency](Concurrency.md) since some parts of the process continue to make progress while others are busy. 
 Threads can also be used to modularize a process – a process like a web browser may create one thread for each browsing tab, or create threads to run external plugins.
 
 ## Thread vs Process
 One might argue that in general processes are more flexible than threads.
 For example, processes are controlled independently by the OS, meaning that if one crashes it will not affect other processes.
-However, processes require explicit communication using either [[Message Passing]]or [[Shared memory]] which may add overhead since it requires support from the OS kernel.
+However, processes require explicit communication using either [Message Passing](Message_Passing.md) or [Shared memory](Shared_memory.md) which may add overhead since it requires support from the OS kernel.
 Using threads within a process allows them all to share the same address space, simplifying communication between threads. However, threads have their own problems: because they communicate through shared memory they must run on same machine and care must be taken to create thread-safe code that functions correctly despite multiple threads acting on the same set of shared data. 
 
 >**Process** -> defines the address space, text, resources, etc.
@@ -32,7 +32,7 @@ When comparing processes and threads, we can also analyze the context switch cos
 
 ## Kernel and User Threads
 There are two ways to manage our threads. Threads can either be created as `kernel` threads or `user-level` threads. 
-`kernel thread:` The kernel is responsible of handling the threads and [[Context Switch]] (much faster and less intensive operation compared to doing it with processes. A lot of the information is the same so changing the couple registers is very cheap). 
+`kernel thread:` The kernel is responsible of handling the threads and [Context Switch](Context_switch.md) (much faster and less intensive operation compared to doing it with processes. A lot of the information is the same so changing the couple registers is very cheap). 
 A `kernel` thread is known also as a `lightweight process`.
 
 
@@ -43,7 +43,7 @@ A `kernel` thread is known also as a `lightweight process`.
 	<img src="https://i.imgur.com/uZHDJUC.png" alt="Multithread">
 </p>
 
-So far when speaking about Processes we implicitly defined them as having one thread only `single-threaded`. When looking at he `multi-threaded` process on the right, the base is the same. We still have the same PCB containing the `code`, `data` and `files`. The difference is a new set of [[Registers]] , stacks and Program counters (which are parts of the process relating to the given thread) that are associated with each running thread.
+So far when speaking about Processes we implicitly defined them as having one thread only `single-threaded`. When looking at he `multi-threaded` process on the right, the base is the same. We still have the same PCB containing the `code`, `data` and `files`. The difference is a new set of [Registers](Registers.md) , stacks and Program counters (which are parts of the process relating to the given thread) that are associated with each running thread.
 
 ## Where should we implement Threads?
 
