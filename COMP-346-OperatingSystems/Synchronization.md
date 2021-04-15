@@ -2,8 +2,8 @@
 <hr>
 
 ==Bad things can happen when two different threads share the same memory==
-Already saw the famous basic example of [[Producer Consumer Problem]].
-Here's another example (this is called [[Race condition]])
+Already saw the famous basic example of [Producer Consumer Problem](Producer_Consumer_Problem.md).
+Here's another example (this is called [Race condition](Race_condirion.md))
 ```java
 1    public boolean withdraw(long amount) {
 2       if (amount <= balance) {
@@ -16,7 +16,7 @@ Here's another example (this is called [[Race condition]])
 9    }
 ```
 
-Consider the following sequence of execution with [[Thread]]A and B:
+Consider the following sequence of execution with [Thread](Thread.md) A and B:
 1.  balance is 1500
 2.  Thread `A` calls `acct.withdraw(1000)`
 3.  Thread `A` runs line 2, condition is `true`
