@@ -3,10 +3,10 @@
 
 Inter-Process Communication (`IPC`) is a set of techniques for the exchange of data among two or more [Threads](Thread.md) in one or more [Processes](Process.md). Processes may be running on one or more computers connected by a network. 
 IPC techniques are divided into methods for
-1. [Message Passing](Message Passing.md)
+1. [Message Passing](Message_Passing.md)
 1. [Synchronization](Synchronization.md)
-1. [[Shared memory]]
-1. [[Remote procedure calls]]
+1. [Shared memory](Shared_Memory.md)
+1. [Remote procedure calls](Remote_Procedure_calls.md)
 
 The method of `IPC` used may vary based on the bandwidth and latency.
 <p align="center">
@@ -16,7 +16,7 @@ The method of `IPC` used may vary based on the bandwidth and latency.
 
 <hr>
 
-## [[Producer Consumer Problem]]
+## [Producer Consumer Problem](Producer_Consumer_Problem.md)
 The producer and consumer problem is one where two processes must coordinate to exchange data.
 <p align="center">
 	<img src="https://4.bp.blogspot.com/-3lgW8TYauWU/WdjSm8-iwbI/AAAAAAAABls/jiFlx-QaewEmrKCJW1zuL-KkewdBh2LXACLcBGAs/s1600/PCP_AndroidSRC.net_.png"alt="ProducerConsumer">
