@@ -2,10 +2,10 @@
 <hr>
 
 `System calls` provide an interface to the services that are available by the system.  Most programs execute in `user mode`.
-Sometimes a [[Program]] will need access to services that only the `kernel` can run because of [[Protection]]. 
+Sometimes a [Program](Program.md) will need access to services that only the `kernel` can run because of [Protection](Protection.md). 
 `System calls` are the programmatic way in which a computer program requests a service from the kernel of the operating system.
 So when that happens, the program runs a `system call` asking the Operating system for resources, switching the mode bit from `user` to `kernel` bit. 
-This switch is known as a [[Context Switch]]
+This switch is known as a [Context Switch](Context_Switch.md)
 
 <p align="center">
 	<img src="https://www.guru99.com/images/1/121119_0451_SystemCalli3.png"
@@ -19,7 +19,7 @@ This switch is known as a [[Context Switch]]
 **Step 3)** Once system call execution is over, control returns to the user mode.,
 
 **Step 4)** The execution of user processes resumed in Kernel mode.
->System calls can be seen as the API which the OS exposes to be used by programs. When a program calls a system call it will cause a [[Trap]]
+>System calls can be seen as the API which the OS exposes to be used by programs. When a program calls a system call it will cause a [Trap](Trap.md)
 
 ## Example Linux System Calls
 
@@ -79,7 +79,7 @@ int main() {
 	return 0;
 }
 ```
-This `C` program invokes `printf()` call, which calls `write()` system call. So when that system call is issued a [[Trap]] is raised, so we jump from `user` to `kernel` mode. The `kernel` then runs the system call and returns it to the `C` library, which then returns it to the program.
+This `C` program invokes `printf()` call, which calls `write()` system call. So when that system call is issued a [Trap](Trap.md) is raised, so we jump from `user` to `kernel` mode. The `kernel` then runs the system call and returns it to the `C` library, which then returns it to the program.
 
 ## System Call implementation
 Generally every system call has some identifying number. Internally the OS has a lookup table with all these `ints` to maintain the indexes.
