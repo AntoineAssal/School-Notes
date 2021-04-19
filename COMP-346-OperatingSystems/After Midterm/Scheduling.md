@@ -1,7 +1,7 @@
 # CPU Scheduling
 <hr>
 
-Scheduling is a key concept in computer `multitasking` and `multiprocessing` operating systems. It refers to the way [Processeses](Process.md) are selected to be run, and how they are allocated time on the CPU. The operating system can support multiple scheduling policies which impact how processes or [Threads](Thread.md) are chosen to be run and in turn impact the performance seen by applications.
+Scheduling is a key concept in computer `multitasking` and `multiprocessing` operating systems. It refers to the way [Processeses](../Before%20Midterm/Process.md) are selected to be run, and how they are allocated time on the CPU. The operating system can support multiple scheduling policies which impact how processes or [Threads](../Before%20Midterm/Thread.md) are chosen to be run and in turn impact the performance seen by applications.
 
 > **Reminder**:  `multiprogramming` -> running more than one process at a time enables the OS to increase system utilization and throughput by overlapping `I/O` and CPU activities.
 
@@ -9,7 +9,7 @@ Scheduling is a key concept in computer `multitasking` and `multiprocessing` ope
 Operating systems utilize two types of schedulers: a long-term scheduler (also known as an admission scheduler or high-level) and a short-term scheduler (also known as a dispatcher). The names suggest the relative frequency with which these functions are performed.
 
 ###  Long-Term Scheduling
-The long-term, or admission, scheduler decides which jobs or processes are to be admitted to the ready queue and how many processes should be admitted into the ready [Process Queues](Process_Queues.md). This controls the total number of jobs which can be running within the system. 
+The long-term, or admission, scheduler decides which jobs or processes are to be admitted to the ready queue and how many processes should be admitted into the ready [Process Queues](../Before%20Midterm/Process_Queues.md). This controls the total number of jobs which can be running within the system. 
 In practice, this limit is generally not reached, but if a process attempts to fork off a large number of processes it will eventually reach an OS defined limit where it will prevent any further processes from being created. 
 >So its not "how many programs can I run now, which one do i pick". Its "how many programs can my machine run simultaneously given the practical constraints"
 
@@ -18,7 +18,7 @@ This type of scheduling is very important for a `real-time operating system`, as
 ###  Short-Term Scheduling
 >==We're more concerned about this type of scheduling for our course==
 
-The short-term scheduler (also known as the dispatcher) decides which of the ready, in-memory processes are to be executed (allocated a CPU) next following a clock [Interrupts](Interrupts.md), an IO interrupt, or an operating [System calls](System_calls.md). Thus the short-term scheduler makes scheduling decisions **much more frequently than the long-term schedulers - a scheduling decision will at a minimum have to be made after every time slice, which can be as often as every few milliseconds.**
+The short-term scheduler (also known as the dispatcher) decides which of the ready, in-memory processes are to be executed (allocated a CPU) next following a clock [Interrupts](../Before%20Midterm/Interrupts.md), an IO interrupt, or an operating [System calls](../Before%20Midterm/System_calls.md). Thus the short-term scheduler makes scheduling decisions **much more frequently than the long-term schedulers - a scheduling decision will at a minimum have to be made after every time slice, which can be as often as every few milliseconds.**
 This scheduler can be `preemptive`, implying that it is capable of forcibly removing processes from a CPU when it decides to allocate that CPU to another process, or `non-preemptive,` in which case the scheduler is unable to ”force” processes off the CPU.
 
 #### When does the Short-Term Scheduler run?
@@ -32,7 +32,7 @@ This scheduler can be `preemptive`, implying that it is capable of forcibly remo
 #### Goals
 - Ensure that as many jobs are running at a time as is possible. On a single-CPU system, the goal is to keep one job running at all times.
 - `Multiprogramming` allows us to keep many jobs ready to run at all times. Although we can not concurrently run more jobs than we have available processors, we can allow each processor to be running one job, while other jobs are waiting for I/O or other events.
-- Lower the average waiting time for a process in a [Process Execution States](Process_Execution_States.md). The less time the process waits in a state queue the faster processes are gonna get scheduled.
+- Lower the average waiting time for a process in a [Process Execution States](../Before%20Midterm/Process_Execution_States.md). The less time the process waits in a state queue the faster processes are gonna get scheduled.
 
 #### Metrics
 Criteria| Description|
