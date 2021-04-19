@@ -2,7 +2,7 @@
 <hr>
 
 ## What is a Process?
-An instance of an executing [[Program]]. A process is an active entity as it is created during the execution of a program and loaded into the main memory.
+An instance of an executing [Program](Program.md). A process is an active entity as it is created during the execution of a program and loaded into the main memory.
 > A Process is a dynamic instance of a computer program that is being sequentially executed by a computer that has the ability to run several computer programs concurrently.
 
 >Several processes may be associated with the same program; for example,opening up several windows of the same program typically means more than one process is being executed.
@@ -33,7 +33,7 @@ The address space is divided into 3 segments:
 	<img src="https://i.imgur.com/DYLBHgp.png" alt="Process layout2">
 </p>
 
-This process layer in memory is managed by a set of [[Registers]].
+This process layer in memory is managed by a set of [Registers](Registers.md).
 ### Example Process in Memory
 ```c
 void X(int b){
@@ -65,7 +65,7 @@ State| Description
 *`waiting`*| Can't continue, waiting for some event to happen.
 *`terminated`*|Finished, the OS can destroy data now.
 
-I'll include more information about that in [[Process Execution States]]
+I'll include more information about that in [Process Execution States](Process_Execution_States.md)
 
 <hr>
 
@@ -76,7 +76,7 @@ A process can create other processes to do some task.
 All processes are created by some other process; each process is considered to have a single parent and it may have several children if it creates multiple processes.
 The first process on a `Unix` system is the `Init` process which starts up during the booting process and initiates `system daemons` and the login process.
 
-`fork` copies the parent [[PCB]] into new child `PCB`. This new child `PCB` now contains execution at instruction after the fork. In a multithreading environment, `fork`means that a [[Thread]] of execution is duplicated, creating a child thread from the parent thread. Under `Unix` the parent and the child processes can tell each other apart by examining the return value of the `fork()` [[System calls]].
+`fork` copies the parent [PCB](PCB.md) into new child `PCB`. This new child `PCB` now contains execution at instruction after the fork. In a multithreading environment, `fork`means that a [Thread](Thread.md) of execution is duplicated, creating a child thread from the parent thread. Under `Unix` the parent and the child processes can tell each other apart by examining the return value of the `fork()` [System calls](System_calls.md).
 In the `child` process, the return value of` fork()` is `0`, whereas the
 return value in the `parent` process is the `PID` of the newly-created child process.
 
@@ -127,7 +127,7 @@ Command| Description
 
 ## Process Termination
 
-On process termination, the OS reclaims all resources assigned to the process. In UNIX, a process can terminate itself using the `exit` [[System calls]]. Alternatively, a process can terminate another process (given that [[Protection]] gave it the appropriate permission/privilege to do so) using the `kill` system call. 
+On process termination, the OS reclaims all resources assigned to the process. In UNIX, a process can terminate itself using the `exit` [System calls](System_calls.md). Alternatively, a process can terminate another process (given that [Protection](Protection.md) gave it the appropriate permission/privilege to do so) using the `kill` system call. 
 > If a process is `killed`, its child processes may or may not be killed. 
 > If they are not, then they will be assigned a new parent process. 
 > Either a "grand parent" process or the `Init` process.
@@ -135,5 +135,5 @@ On process termination, the OS reclaims all resources assigned to the process. I
 <hr>
 
 ## Process cooperation
-Processes are either independent or cooperating. They can work together to accomplish a single task, and depend on each other. An example is `Apache Web Server`. The way it works is by having a `main` process that listens for web requests and there's a bunch of `worker` processes who handle different pieces of work upon receiving a request. In order to make that work, the OS needs to have a mechanism for [[Interprocess communication]].
-Classic example of this is the [[Producer Consumer Problem]]. Concurrent access to shared data may result in data inconsistency. Which is why we need [[Process Synchronization]].
+Processes are either independent or cooperating. They can work together to accomplish a single task, and depend on each other. An example is `Apache Web Server`. The way it works is by having a `main` process that listens for web requests and there's a bunch of `worker` processes who handle different pieces of work upon receiving a request. In order to make that work, the OS needs to have a mechanism for [Interprocess communication.](Interprocess_communication)
+Classic example of this is the [Producer Consumer Problem](Producer_consumer_problem.md). Concurrent access to shared data may result in data inconsistency. Which is why we need [Process Synchronization](Process_Synchronization.md).

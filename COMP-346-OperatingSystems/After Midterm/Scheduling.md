@@ -1,7 +1,7 @@
 # CPU Scheduling
 <hr>
 
-Scheduling is a key concept in computer `multitasking` and `multiprocessing` operating systems. It refers to the way [[Process]]es are selected to be run, and how they are allocated time on the CPU. The operating system can support multiple scheduling policies which impact how processes or [[Thread]]s are chosen to be run and in turn impact the performance seen by applications.
+Scheduling is a key concept in computer `multitasking` and `multiprocessing` operating systems. It refers to the way [Processeses](Process.md) are selected to be run, and how they are allocated time on the CPU. The operating system can support multiple scheduling policies which impact how processes or [Threads](Thread.md) are chosen to be run and in turn impact the performance seen by applications.
 
 > **Reminder**:  `multiprogramming` -> running more than one process at a time enables the OS to increase system utilization and throughput by overlapping `I/O` and CPU activities.
 
@@ -9,7 +9,7 @@ Scheduling is a key concept in computer `multitasking` and `multiprocessing` ope
 Operating systems utilize two types of schedulers: a long-term scheduler (also known as an admission scheduler or high-level) and a short-term scheduler (also known as a dispatcher). The names suggest the relative frequency with which these functions are performed.
 
 ###  Long-Term Scheduling
-The long-term, or admission, scheduler decides which jobs or processes are to be admitted to the ready queue and how many processes should be admitted into the ready [[Process Queues]]. This controls the total number of jobs which can be running within the system. 
+The long-term, or admission, scheduler decides which jobs or processes are to be admitted to the ready queue and how many processes should be admitted into the ready [Process Queues](Process_Queues.md). This controls the total number of jobs which can be running within the system. 
 In practice, this limit is generally not reached, but if a process attempts to fork off a large number of processes it will eventually reach an OS defined limit where it will prevent any further processes from being created. 
 >So its not "how many programs can I run now, which one do i pick". Its "how many programs can my machine run simultaneously given the practical constraints"
 
@@ -45,3 +45,49 @@ Criteria| Description|
 
 
 ## **Scheduling Algorithms**
+
+### 1. First come first serve (FCFS)
+
+- Schedules tasks in order of arrival 
+
+```c
+runqueue = queue(FIFO)
+```
+
+If T1, T2 and T3 arrive in the given order and this is their time:
+Task| execution time|
+----- | -------
+T1 | 1 second
+T2 | 10 seconds
+T3 | 1 second
+
+
+- Throughput = <img src="https://render.githubusercontent.com/render/math?math=\frac{3}{(1+10+1)} = \frac{3}{12} = 0.25 s">
+- Average completion time = <img src="https://render.githubusercontent.com/render/math?math=\frac{(1+11+12)}{3} =\frac{24}{3} = 8 s">
+- Average wait time = <img src="https://render.githubusercontent.com/render/math?math=\frac{(1+1+11)}{3} =\frac{13}{3}= 4 s">
+
+
+
+### 2. Shortest Job First (SJF)
+
+- Schedules tasks in order of execution time, so for the same example. 
+
+<p align="center">
+<img src="https://render.githubusercontent.com/render/math?math=T_1(1s)>T_3(1s)>T_2(10s)">
+</p>
+
+```c
+runqueue = ordered(queue)
+
+// or
+runqueue = tree()
+```
+
+- Throughput = <img src="https://render.githubusercontent.com/render/math?math=\frac{3}{(1+10+1)} = \frac{3}{12} = 0.25 s">
+- Average completion time = <img src="https://render.githubusercontent.com/render/math?math=\frac{(1+2+12)}{3} =\frac{15}{3} = 5 s">
+- Average wait time = <img src="https://render.githubusercontent.com/render/math?math=\frac{(0+1+2)}{3} =\frac{3}{3}= 1 s">
+
+### 3. Round-Robin Scheduling
+
+- Pick up the first task from queue (like FCFS)
+- Task may yield to wait on I/O (unlike FCFS)

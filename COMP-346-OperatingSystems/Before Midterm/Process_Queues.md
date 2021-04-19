@@ -1,9 +1,9 @@
 # Process state queues
 <hr>
 
-The OS maintains the [[PCB]]s of all [[Process]]es in state queues. There's a queue for each state, the OS places all the `PCB`s of all the processes of the same execution state in the same queue. Each `I/O` device has its own queue.
+The OS maintains the [PCBs](PCB.md) of all [Processes](process.md) in state queues. There's a queue for each state, the OS places all the `PCB`s of all the processes of the same execution state in the same queue. Each `I/O` device has its own queue.
 When the state of a process is changed, its PCB is un-linked from its current queue and moved to its new state queue. 
-[[Context Switch]]es are happening all the time, typically 100 to 1000s a second.
+[Context Switches](context_switch.md) are happening all the time, typically 100 to 1000s a second.
 
 ## Example State queue
 <p align="center">

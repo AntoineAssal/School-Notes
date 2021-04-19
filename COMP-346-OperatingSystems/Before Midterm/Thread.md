@@ -149,7 +149,7 @@ States | Description
 `WAITING` | A thread can be put in waiting state for various reasons e.g. calling it’s `wait()` method. Usually program put a thread in WAIT state because something else needs to be done prior to what current thread is doing. Can be here by using `join` too.
 `TIMED_WAITING` | The thread is waiting by using `sleep`, `wait`, `join`. (The difference from `WAITING` state is that the maximum waiting time is specified by the method parameter and `WAITING` can be relieved by time as well as external changes)
 `TERMINATED` | 
-## [[Concurrency]] vs Parallelism
+## [Concurrency](Concurrency.md) vs Parallelism
 
 https://i.imgur.com/Lq8k4Bv.png
 

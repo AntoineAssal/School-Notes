@@ -24,6 +24,6 @@ Example of traps:
 - `overflow`
 - `writing to a memory address`
 - `divide by 0`
-- [[System calls]]
+- [System calls](System_calls.md)
 
 >`Traps` are a performance optimization. A less efficient solution is to insert extra instructions into the code everywhere a special condition could arise.

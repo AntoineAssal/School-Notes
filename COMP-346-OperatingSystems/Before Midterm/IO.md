@@ -19,12 +19,12 @@ CPU issues commands to `I/O` devices, and continues its life. When the  `I/O` de
 	<img src="https://i.imgur.com/QLQXOO1.png" alt="I/O Methods">
 </p>
 
-##### 1. Synchronous:
+### 1. Synchronous:
 - We have some requesting [Process](Process.md) that needs to perform an `I/O` operation. So it issues a request through the `device driver` .
 - The `requesting process` now just **sits and waits** for the `I/O` operation to complete.
 - Some time later when the hardware actually finishes processing the `I/O` request, it returns the data to the `device driver`,
 - Which sends out an [Interrupts](Interrupts.md) back to the `requesting process`, to wake it back up and let it know that it can now go fetch the data.
-##### 2. Asynchronous:
+### 2. Asynchronous:
 - We have some requesting [Process](Process.md) that needs to perform an `I/O` operation. So it issues a request through the `device driver` .
 - The `Device driver` starts processing but the `requesting process` will **return control immediately, its not going to wait** for `I/O` to complete.
 - Some time later when the hardware actually finishes processing the `I/O` request, it returns the data to the `device driver`,
@@ -39,7 +39,7 @@ CPU issues commands to `I/O` devices, and continues its life. When the  `I/O` de
 
 *Normally the way an `I/O` device works is it has a local [Registers](Registers.md) where it stores data that was requested. When you request a byte from the disk it goes and fetches the byte then sends an interrupt when it's ready. Suppose we want to read a large file. We don't want to do that 1 byte at a time where we're issuing and receiving interrupts for every single byte. Because that's obviously inefficient and a waste. So instead we use memory-mapped IO*
 
-##### 3. Memory-mapped:
+### 3. Memory-mapped:
 - Enables direct access to `I/O` controller (vs. being required to move the `I/O` code and data into memory)
 - `PC` (Program counter) reserves a part of the physical memory and puts the device manager in that memory.
 - Access to the device then becomes almost as fast and convenient as writing the data directly into memory.
@@ -65,7 +65,7 @@ The CPU sends a signal to the `I/O controller` saying read this file. Rather tha
  alt="Typical PC bus structure">
 </p>
 
-#### Polling
+## Polling
 
 -   One simple means of device communication involves polling:
     1.  The host repeatedly checks the _**busy bit**_ on the device until it becomes clear.
@@ -76,7 +76,7 @@ The CPU sends a signal to the `I/O controller` saying read this file. Rather tha
     6.  The device controller then clears the _**error bit**_ in the status register, the command-ready bit, and finally clears the busy bit, signaling the completion of the operation.
 > Polling can be very fast and efficient, if both the device and the controller are fast and if there is significant data to transfer. It becomes inefficient, however, if the host must wait a long time in the busy loop waiting for the device, or if frequent checks need to be made for data that is infrequently there.
 
-#### [Interrupts](Interrupts.md)
+## [Interrupts](Interrupts.md)
 -   Interrupts allow devices to notify the CPU when they have data to transfer or when an operation is complete, allowing the CPU to perform other duties when no I/O transfers need its immediate attention.
 -   The CPU has an _**interrupt-request line**_ that is sensed after every instruction.
     -   A device's controller _**raises**_ an interrupt by asserting a signal on the interrupt request line.

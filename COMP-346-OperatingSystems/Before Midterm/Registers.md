@@ -16,7 +16,7 @@ A dedicated for one `word` of memory managed by the CPU.
 - `FP` Frame pointer - Managing the layout in the picture below
 - `PC` Program counter - While the program is running in memory, the program counter tells us what instruction is executing and which instruction will be executed next.
 
-These **special purpose registers** have values which are only valid for the current process. Whereas when we change to some other process, [[Context Switch]]. That [[Process]] now has its own `SP`,`FP`, `PC`. 
+These **special purpose registers** have values which are only valid for the current process. Whereas when we change to some other process, [Context Switch](Context_switch.md). That [Process](Process.md) now has its own `SP`,`FP`, `PC`. 
 
 <p align="center">
 	<img src="https://i.imgur.com/77nid0S.png" alt="Registers">

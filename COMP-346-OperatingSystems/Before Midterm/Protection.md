@@ -33,12 +33,12 @@ Kernel mode vs. User mode: To protect the system from aberrant users and process
 - Disable or Enable interrupts ❌
 - Halt the machine ❌
 
-These protected instructions, `privileged` can only be executed in kernel mode. Any Operating system [[Architecture]] will have this constraint.
+These protected instructions, `privileged` can only be executed in kernel mode. Any Operating system [Architecture](Architecture.md) will have this constraint.
 <hr>
 
 ### How do we use I/O if the user program doesn't have permission
 
-Through [[System calls]]:
-Through [[Message Passing]]
+Through [System calls](System_calls.md):
+Through [Message Passing](Message_Passing.md)
 
 

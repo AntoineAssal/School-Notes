@@ -36,7 +36,7 @@ Protection | `chmod();` `umask();` `chown();`
 ## Categories of System Calls
 System calls can be grouped into five major categories. These are some examples of the system calls. This is not a specific language just self-explanatory common routines :
 
-#### 1. Process Control
+### 1. Process Control
 `end` finished task, `abort` halt process because of error or crash.
 `load`, `execute`
 `create.process`, `terminate.process`
@@ -45,26 +45,26 @@ System calls can be grouped into five major categories. These are some examples 
 `wait.event`, `signal.event`
 `allocate.memory`, `free.memory`
 Examples of system calls that deal with controlling the flow of a process.
-#### 2. File Manipulation
+### 2. File Manipulation
 `create.file`, `delete.file`
 `open.file`, `close.file`
 `read`, `write`, `reposition`
 `get.fileAttributes`, `set.fileAttributes`
-#### 3. Device Management
+### 3. Device Management
 `request.device`, `release.device`
 `read`, `write`, `reposition`
 `get.deviceAttributes`, `set.deviceAttributes`
 `attach.device`, `detach.device`
 Here devices here can mean I/O devices. The last attach/devices is for the logical (de)attachment of your device in the system. Like that option to "safely remove/eject" even if it's physically plugged in.
-#### 4. Information Maintenance
+### 4. Information Maintenance
 `get.time`,`get.date`,`set.time`,`set.date`
 `get.systemData`,`set.systemData`
 `get.processAttributes`, `get.fileAttributes`, `get.deviceAttributes`, `set.processAttributes`, `set.fileAttributes`, `set.deviceAttributes`
 All the information about the system are updated and maintained by the OS. 
-#### 5. Communications
+### 5. Communications
 `create.connection`, `delete.connection`
 `send.message`, `recieve.message`
-Processes often need to communicate with each other. So they need to have a connection to exchange information and statuses. The OS handles this communication because of [[Protection]]
+Processes often need to communicate with each other. So they need to have a connection to exchange information and statuses. The OS handles this communication because of [Protection](Protection.md)
 <hr>
 
 ## Standard C library example
@@ -85,4 +85,3 @@ This `C` program invokes `printf()` call, which calls `write()` system call. So 
 Generally every system call has some identifying number. Internally the OS has a lookup table with all these `ints` to maintain the indexes.
 The caller doesn't need to know anything about how the system call works or is implemented (in fact they're mostly hidden from the programmer by an `API`), so just need to obey the `API` rules and understand what the consequence of a certain call is.
 
-## System Call Parameter Passing

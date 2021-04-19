@@ -1,9 +1,5 @@
-# Practice from Textbook
-
-
-
-# Practice from Theory Assignments
-### Question 1 
+# TA 2
+## Question 1 
 >What are the main differences between the `user vs kernel threads` models? Which one of these models is likely to trash the system if used without any constraints?
 
 `User-Level Thread`| `Kernel Thread`|
@@ -17,13 +13,13 @@ Blocked if it stops executing.| Another thread keeps running if blocked.
 <hr>
 
 
-### Question 2
+## Question 2
 >Why `threads` are referred to as `“light-weight” processes`? What resources are used when a `thread` is created? How do they differ from those used when a `process` is created?
 
 <hr>
 
 
-### Question 3
+## Question 3
 >Does `shared memory` provide faster or slower interactions between `user processes`? 
 >Under what conditions is shared memory not suitable at all for `inter-process communications`?
 
@@ -33,12 +29,12 @@ Blocked if it stops executing.| Another thread keeps running if blocked.
 <hr>
 
 
-### Question 4
+## Question 4
 
 >Consider three `concurrent processes` $A$, $B$ and $C$,  synchronized by three `semaphores` $mutex, goB, goC$ , 
 
 Reminder of semaphore wait and signal definitions :
-#### Definition of `wait()`
+### Definition of `wait()`
 ```c
 P(Semaphore S){
 	while (S <= 0)
@@ -49,7 +45,7 @@ P(Semaphore S){
 - First check if S is less than or equal to `0`. If it is then keep looping
 - When it's not, break out of the loop and decrement `S`.
 
-#### Definition of `signal()`
+### Definition of `signal()`
 ```c
 V(Semaphore S){
 	S++;
@@ -167,7 +163,7 @@ Then, $A$ -> `signal(goB=0)` but its stuck waiting for the mutex. So both will b
 **ii) No process blocks permanently.For $m<n$**
 Nope. if $m<n$, process $B$ will always be blocked because for it to iterate $n$ times it needs at least $n$ `goB` signals. So it will always get stuck on the $(m+1)$th run.
 
-## Question 5
+### Question 5
 >In a **swapping/relocation system**, the values assigned to the $<base, limit>$ `register` pair prevent one `user process` from writing into the `address space` of another user process. 
 >However, these assignment operations are themselves `privileged` instructions that can only be executed in `kernel mode`.
 >
@@ -175,7 +171,7 @@ Nope. if $m<n$, process $B$ will always be blocked because for it to iterate $n$
 
 This is from memory management probably wont be on midterm.
 
-## Question 6
+### Question 6
 > Sometimes it is necessary to synchronize two or more processes so that all process must finish their first phase before any of them is allowed to start its second phase. 
 > For two processes, we might write: `semaphore` $s1 = 0, s2 = 0$ 
 ```
@@ -207,12 +203,13 @@ P (s1)
 
 **b)** Give the solution if the following rule is added: after all processes finish their first phase, phase I, they must execute phase II in order of their number; that is P1, then P2 and finally P3
 
-## Question 7
+### Question 7
 > Generally, both $P$ and $V$ operations must be implemented as a` critical sections`.
 > Are there any cases when any of these two operations can safely be implemented as a `non-critical section`? 
 > If yes, demonstrate through an example when/how this can be done without creating any violations.
 > If no, explain why these operations must always be implemented as `critical sections.`
 
-## Question 8
+### Question 8
 
 > What is the potential problem of `multiprogramming`?
+
