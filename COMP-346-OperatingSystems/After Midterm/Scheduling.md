@@ -5,76 +5,136 @@ Scheduling is a key concept in computer `multitasking` and `multiprocessing` ope
 
 > **Reminder**:  `multiprogramming` -> running more than one process at a time enables the OS to increase system utilization and throughput by overlapping `I/O` and CPU activities.
 
-## Types of Scheduling
-Operating systems utilize two types of schedulers: a long-term scheduler (also known as an admission scheduler or high-level) and a short-term scheduler (also known as a dispatcher). The names suggest the relative frequency with which these functions are performed.
-
-###  Long-Term Scheduling
-The long-term, or admission, scheduler decides which jobs or processes are to be admitted to the ready queue and how many processes should be admitted into the ready [Process Queues](../Before%20Midterm/Process_Queues.md). This controls the total number of jobs which can be running within the system. 
-In practice, this limit is generally not reached, but if a process attempts to fork off a large number of processes it will eventually reach an OS defined limit where it will prevent any further processes from being created. 
->So its not "how many programs can I run now, which one do i pick". Its "how many programs can my machine run simultaneously given the practical constraints"
-
-This type of scheduling is very important for a `real-time operating system`, as the system’s ability to meet process deadlines may be compromised by the slowdowns and contention resulting from the admission of more processes than the system can safely handle.
-
-###  Short-Term Scheduling
->==We're more concerned about this type of scheduling for our course==
-
-The short-term scheduler (also known as the dispatcher) decides which of the ready, in-memory processes are to be executed (allocated a CPU) next following a clock [Interrupts](../Before%20Midterm/Interrupts.md), an IO interrupt, or an operating [System calls](../Before%20Midterm/System_calls.md). Thus the short-term scheduler makes scheduling decisions **much more frequently than the long-term schedulers - a scheduling decision will at a minimum have to be made after every time slice, which can be as often as every few milliseconds.**
-This scheduler can be `preemptive`, implying that it is capable of forcibly removing processes from a CPU when it decides to allocate that CPU to another process, or `non-preemptive,` in which case the scheduler is unable to ”force” processes off the CPU.
-
-#### When does the Short-Term Scheduler run?
-- When a Process switches from running to waiting
-- An interrupt occurs
-- A process is created or terminated
-
-
-
-## What are our goals & metrics?
-#### Goals
-- Ensure that as many jobs are running at a time as is possible. On a single-CPU system, the goal is to keep one job running at all times.
-- `Multiprogramming` allows us to keep many jobs ready to run at all times. Although we can not concurrently run more jobs than we have available processors, we can allow each processor to be running one job, while other jobs are waiting for I/O or other events.
-- Lower the average waiting time for a process in a [Process Execution States](../Before%20Midterm/Process_Execution_States.md). The less time the process waits in a state queue the faster processes are gonna get scheduled.
-
-#### Metrics
-Criteria| Description|
------------- | ------------
-`Throughput`| Number of processes completing in a unit of time
-`CPU Utilization`|The % of time where the CPU is busy
-`Turnaround Time` | Time it take to run a process from initialization to termination. Including all the waiting time.
-`Waiting Time` | The total amount of time that a process is in the ready queue. 
-`Response Time` | How quickly does the process respond like when you move your mouse. Time between when a process is ready to run and its next I/O request. 
-
 
 ## **Scheduling Algorithms**
 
 ### 1. First come first serve (FCFS)
+- The simplest CPU-scheduling algorithms.
+- Schedules tasks in order of arrival, first process that requests CPU gets it.
+- Managed with a `FIFO queue.`
+- When a process enters the `ready queue` its [`PCB`](../Before%20Midterm/PCB.md) is linked onto the `tail` of the `queue`.
+- When the CPU is free, it is allocated to the process at the `head` of the queue.
+- The running process is then removed from the queue.
 
-- Schedules tasks in order of arrival 
+<p align="center">
+	<img src="https://i.imgur.com/x6xfEFT.png" alt="FCFS">
+</p>
 
 ```c
 runqueue = queue(FIFO)
 ```
+### How efficient is this?
 
-If T1, T2 and T3 arrive in the given order and this is their time:
-Task| execution time|
+Consider the following processes: T1, T2 and T3 arrive in the given order with their burst time being:
+
+Task| burst time|
 ----- | -------
 T1 | 1 second
 T2 | 10 seconds
 T3 | 1 second
+<br>
+
+- Throughput =
+<a href="https://www.codecogs.com/eqnedit.php?latex=\inline&space;\dpi{150}&space;\bg_white&space;\fn_cm&space;\small&space;\frac{3}{(1&plus;10&plus;1)}&space;=&space;\frac{3}{12}&space;=&space;0.25&space;s" target="_blank"><img src="https://latex.codecogs.com/png.latex?\inline&space;\dpi{150}&space;\bg_white&space;\fn_cm&space;\small&space;\frac{3}{(1&plus;10&plus;1)}&space;=&space;\frac{3}{12}&space;=&space;0.25&space;s" title="\small \frac{3}{(1+10+1)} = \frac{3}{12} = 0.25 s" /></a>
+
+- Average completion time = <a href="https://www.codecogs.com/eqnedit.php?latex=\inline&space;\dpi{150}&space;\bg_white&space;\fn_cm&space;\small&space;\frac{(1&plus;11&plus;12)}{3}&space;=\frac{24}{3}&space;=&space;8&space;s" target="_blank"><img src="https://latex.codecogs.com/png.latex?\inline&space;\dpi{150}&space;\bg_white&space;\fn_cm&space;\small&space;\frac{(1&plus;11&plus;12)}{3}&space;=\frac{24}{3}&space;=&space;8&space;s" title="\small \frac{(1+11+12)}{3} =\frac{24}{3} = 8 s" /></a>
+
+- Average wait time = <a href="https://www.codecogs.com/eqnedit.php?latex=\inline&space;\dpi{150}&space;\bg_white&space;\fn_cm&space;\small&space;\frac{(1&plus;1&plus;11)}{3}&space;=\frac{13}{3}=&space;4&space;s" target="_blank"><img src="https://latex.codecogs.com/png.latex?\inline&space;\dpi{150}&space;\bg_white&space;\fn_cm&space;\small&space;\frac{(1&plus;1&plus;11)}{3}&space;=\frac{13}{3}=&space;4&space;s" title="\small \frac{(1+1+11)}{3} =\frac{13}{3}= 4 s" /></a>
+
+<br>
+
+Let's look at another more detailed example with an arrival time and go through it step by step:
+
+Task| burst time| arrival time
+----- | -------|----
+P1 | 6 seconds|2
+P2 | 3 seconds|5
+P3 | 8 seconds|1
+P4 | 3 seconds|0
+P5 | 4 seconds|4
+
+The CPU will start with P4 which has arrival time 0.
+
+<p align="center">
+	<img src="https://i.imgur.com/PNLVJpy.png" height="170" width="650" alt="time 0">
+</p>
+At time = 1, P3 arrives, P4 is still executing for 3 more seconds so P3 is put in the queue.
+
+<p align="center">
+	<img src="https://i.imgur.com/QHcYC2H.png" height="170" width="650" alt="time 1">
+</p>
+
+At time = 2, P1 arrives, P4 is still executing, P1 is put in the queue.
+
+<p align="center">
+	<img src="https://i.imgur.com/xRB48xp.png" height="170" width="650" alt="time 2">
+</p>
+
+At time = 3, P4 is done executing.
+<p align="center">
+	<img src="https://i.imgur.com/Z81I9tV.png" height="170" width="650" alt="time 3">
+</p>
+
+At time = 4, first process in the queue is picked up by the CPU and starts it's execution.
+<p align="center">
+	<img src="https://i.imgur.com/Ce8OBcc.png" height="170" width="650" alt="time 4">
+</p>
+
+At time = 5, P2 arrives and is added to the queue.
+<p align="center">
+	<img src="https://i.imgur.com/tPBIhNS.png" height="170" width="650" alt="time 5">
+</p>
+
+At time = 11, P3 completes its execution
+<p align="center">
+	<img src="https://i.imgur.com/7xIdFBc.png" height="170" width="650" alt="time 11">
+</p>
 
 
-- Throughput = <img src="https://render.githubusercontent.com/render/math?math=\frac{3}{(1+10+1)} = \frac{3}{12} = 0.25 s">
-- Average completion time = <img src="https://render.githubusercontent.com/render/math?math=\frac{(1+11+12)}{3} =\frac{24}{3} = 8 s">
-- Average wait time = <img src="https://render.githubusercontent.com/render/math?math=\frac{(1+1+11)}{3} =\frac{13}{3}= 4 s">
+At time = 11, P1 starts its execution for 6 seconds and terminates at 17.
 
+<p align="center">
+	<img src="https://i.imgur.com/iLG34mG.png" height="170" width="650" alt="time 11">
+</p>
 
+At time = 17, P5 starts execution for 4 seconds and terminates at 21.
+
+<p align="center">
+	<img src="https://i.imgur.com/1x9UMWK.png" height="170" width="650" alt="time 17">
+</p>
+
+At time = 21, P2 starts execution for 2 seconds and terminates at 23.
+<p align="center">
+	<img src="https://i.imgur.com/X7MKbjq.png" height="170" width="650" alt="time 21">
+</p>
+
+<p align="center">
+	<img src="https://i.imgur.com/hNA7RXs.png" alt="final">
+</p>
+
+```Wait time = Start time - Arrival Time```
+Task| wait time
+---| -------|
+P1 | 0-0=0|
+P2 | 3-1=2|
+P3 | 11-2=9|
+P4 | 17-4=13|
+P5 | 21-5=16|
+<br>
+
+- Average waiting time :
+
+<a href="https://www.codecogs.com/eqnedit.php?latex=\inline&space;\dpi{150}&space;\bg_white&space;\fn_cm&space;\small&space;\frac{(0&plus;2&plus;9&plus;13&plus;16)}{5}=\frac{40}{5}=8s" target="_blank"><img src="https://latex.codecogs.com/png.latex?\inline&space;\dpi{150}&space;\bg_white&space;\fn_cm&space;\small&space;\frac{(0&plus;2&plus;9&plus;13&plus;16)}{5}=\frac{40}{5}=8s" title="\small \frac{(0+2+9+13+16)}{5}=\frac{40}{5}=8s" /></a>
+
+So, as we can see the average waiting time under the `FCFS` is quite too long.
+
+<hr>
 
 ### 2. Shortest Job First (SJF)
 
-- Schedules tasks in order of execution time, so for the same example. 
+- Schedules tasks in order of execution time, so for the same first example. 
 
-<p align="center">
-<img src="https://render.githubusercontent.com/render/math?math=T_1(1s)>T_3(1s)>T_2(10s)">
-</p>
+<a href="https://www.codecogs.com/eqnedit.php?latex=\inline&space;\dpi{150}&space;\bg_white&space;\fn_cm&space;\small&space;T_1(1s)>T_3(1s)>T_2(10s)" target="_blank"><img src="https://latex.codecogs.com/png.latex?\inline&space;\dpi{150}&space;\bg_white&space;\fn_cm&space;\small&space;T_1(1s)>T_3(1s)>T_2(10s)" title="\small T_1(1s)>T_3(1s)>T_2(10s)" /></a>
 
 ```c
 runqueue = ordered(queue)
@@ -83,11 +143,15 @@ runqueue = ordered(queue)
 runqueue = tree()
 ```
 
-- Throughput = <img src="https://render.githubusercontent.com/render/math?math=\frac{3}{(1+10+1)} = \frac{3}{12} = 0.25 s">
-- Average completion time = <img src="https://render.githubusercontent.com/render/math?math=\frac{(1+2+12)}{3} =\frac{15}{3} = 5 s">
-- Average wait time = <img src="https://render.githubusercontent.com/render/math?math=\frac{(0+1+2)}{3} =\frac{3}{3}= 1 s">
+- Throughput = <a href="https://www.codecogs.com/eqnedit.php?latex=\inline&space;\dpi{150}&space;\bg_white&space;\fn_cm&space;\small&space;\frac{3}{(1&plus;10&plus;1)}&space;=&space;\frac{3}{12}&space;=&space;0.25&space;s" target="_blank"><img src="https://latex.codecogs.com/png.latex?\inline&space;\dpi{150}&space;\bg_white&space;\fn_cm&space;\small&space;\frac{3}{(1&plus;10&plus;1)}&space;=&space;\frac{3}{12}&space;=&space;0.25&space;s" title="\small \frac{3}{(1+10+1)} = \frac{3}{12} = 0.25 s" /></a>
+- Average completion time = <a href="https://www.codecogs.com/eqnedit.php?latex=\inline&space;\dpi{150}&space;\bg_white&space;\fn_cm&space;\small&space;\frac{(1&plus;2&plus;12)}{3}&space;=\frac{15}{3}&space;=&space;5&space;s" target="_blank"><img src="https://latex.codecogs.com/png.latex?\inline&space;\dpi{150}&space;\bg_white&space;\fn_cm&space;\small&space;\frac{(1&plus;2&plus;12)}{3}&space;=\frac{15}{3}&space;=&space;5&space;s" title="\small \frac{(1+2+12)}{3} =\frac{15}{3} = 5 s"/> </a>
+
+- Average wait time = <a href="https://www.codecogs.com/eqnedit.php?latex=\inline&space;\dpi{150}&space;\bg_white&space;\fn_cm&space;\small&space;\frac{(0&plus;1&plus;2)}{3}&space;=\frac{3}{3}=&space;1&space;s" target="_blank"><img src="https://latex.codecogs.com/png.latex?\inline&space;\dpi{150}&space;\bg_white&space;\fn_cm&space;\small&space;\frac{(0&plus;1&plus;2)}{3}&space;=\frac{3}{3}=&space;1&space;s" title="\small \frac{(0+1+2)}{3} =\frac{3}{3}= 1 s" /></a>
 
 ### 3. Round-Robin Scheduling
 
 - Pick up the first task from queue (like FCFS)
 - Task may yield to wait on I/O (unlike FCFS)
+
+<hr>
+
