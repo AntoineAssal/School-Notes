@@ -34,6 +34,6 @@ The class wasn't taught in a "classic" linear progression way. Meaning that it d
 
 ## References 
 - COMP 346 - Course Material by Aiman Hanna at Concordia University.
-- University of Massachusetts at Amherst Lectures on Youtube.
-- Neso Academy on Youtube
-- Operating System Concepts by Silberschatz, Galvin and Gagne, 9th Edition Textbook.
+- [University of Massachusetts at Amherst Lectures on Youtube.](https://www.youtube.com/playlist?list=PLacuG5pysFbDQU8kKxbUh4K5c1iL5_k7k)
+- [Neso Academy on Youtube](https://www.youtube.com/playlist?list=PLBlnK6fEyqRiVhbXDGLXDk_OQAeuVcp2O)
+- [Operating System Concepts by Silberschatz, Galvin and Gagne, 9th Edition Textbook.](https://www.os-book.com/OS9/slide-dir/index.html)
