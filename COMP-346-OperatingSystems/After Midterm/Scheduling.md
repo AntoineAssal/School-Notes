@@ -3,8 +3,7 @@
 
 Scheduling is a key concept in computer `multitasking` and `multiprocessing` operating systems. It refers to the way [Processeses](../Before%20Midterm/Process.md) are selected to be run, and how they are allocated time on the CPU. The operating system can support multiple scheduling policies which impact how processes or [Threads](../Before%20Midterm/Thread.md) are chosen to be run and in turn impact the performance seen by applications.
 
-> **Reminder**:  `multiprogramming` -> running more than one process at a time enables the OS to increase system utilization and throughput by overlapping `I/O` and CPU activities.
-
+<table><tr><td> Multiprogramming: running more than one process at a time enables the OS to increase system utilization and throughput by overlapping `I/O` and CPU activities.</td></tr></table>
 
 ## **Scheduling Algorithms**
 
@@ -35,11 +34,12 @@ T3 | 1 second
 <br>
 
 - Throughput =
-<a href="https://www.codecogs.com/eqnedit.php?latex=\inline&space;\dpi{150}&space;\bg_white&space;\fn_cm&space;\small&space;\frac{3}{(1&plus;10&plus;1)}&space;=&space;\frac{3}{12}&space;=&space;0.25&space;s" target="_blank"><img src="https://latex.codecogs.com/png.latex?\inline&space;\dpi{150}&space;\bg_white&space;\fn_cm&space;\small&space;\frac{3}{(1&plus;10&plus;1)}&space;=&space;\frac{3}{12}&space;=&space;0.25&space;s" title="\small \frac{3}{(1+10+1)} = \frac{3}{12} = 0.25 s" /></a>
+<img src="https://latex.codecogs.com/png.latex?\inline&space;\dpi{150}&space;\bg_black&space;\fn_cm&space;\small&space;\frac{3}{(1&plus;10&plus;1)}&space;=&space;\frac{3}{12}&space;=&space;0.25&space;s" title="\small \frac{3}{(1+10+1)} = \frac{3}{12} = 0.25 s" />
 
-- Average completion time = <a href="https://www.codecogs.com/eqnedit.php?latex=\inline&space;\dpi{150}&space;\bg_white&space;\fn_cm&space;\small&space;\frac{(1&plus;11&plus;12)}{3}&space;=\frac{24}{3}&space;=&space;8&space;s" target="_blank"><img src="https://latex.codecogs.com/png.latex?\inline&space;\dpi{150}&space;\bg_white&space;\fn_cm&space;\small&space;\frac{(1&plus;11&plus;12)}{3}&space;=\frac{24}{3}&space;=&space;8&space;s" title="\small \frac{(1+11+12)}{3} =\frac{24}{3} = 8 s" /></a>
+- Average completion time =<img src="https://latex.codecogs.com/png.latex?\inline&space;\dpi{150}&space;\bg_black&space;\fn_cm&space;\small&space;\frac{(1&plus;11&plus;12)}{3}&space;=\frac{24}{3}&space;=&space;8&space;s" title="\small \frac{(1+11+12)}{3} =\frac{24}{3} = 8 s" />
 
-- Average wait time = <a href="https://www.codecogs.com/eqnedit.php?latex=\inline&space;\dpi{150}&space;\bg_white&space;\fn_cm&space;\small&space;\frac{(1&plus;1&plus;11)}{3}&space;=\frac{13}{3}=&space;4&space;s" target="_blank"><img src="https://latex.codecogs.com/png.latex?\inline&space;\dpi{150}&space;\bg_white&space;\fn_cm&space;\small&space;\frac{(1&plus;1&plus;11)}{3}&space;=\frac{13}{3}=&space;4&space;s" title="\small \frac{(1+1+11)}{3} =\frac{13}{3}= 4 s" /></a>
+- Average wait time = <img src="https://latex.codecogs.com/png.latex?\inline&space;\dpi{150}&space;\bg_black&space;\fn_cm&space;\small&space;\frac{(1&plus;1&plus;11)}{3}&space;=\frac{13}{3}=&space;4&space;s" title="\small \frac{(1+11+1)}{3} =\frac{13}{3}= 4 s" />
+
 
 <br>
 
@@ -124,9 +124,41 @@ P5 | 21-5=16|
 
 - Average waiting time :
 
-<a href="https://www.codecogs.com/eqnedit.php?latex=\inline&space;\dpi{150}&space;\bg_white&space;\fn_cm&space;\small&space;\frac{(0&plus;2&plus;9&plus;13&plus;16)}{5}=\frac{40}{5}=8s" target="_blank"><img src="https://latex.codecogs.com/png.latex?\inline&space;\dpi{150}&space;\bg_white&space;\fn_cm&space;\small&space;\frac{(0&plus;2&plus;9&plus;13&plus;16)}{5}=\frac{40}{5}=8s" title="\small \frac{(0+2+9+13+16)}{5}=\frac{40}{5}=8s" /></a>
+<img src="https://latex.codecogs.com/png.latex?\inline&space;\dpi{150}&space;\bg_black&space;\fn_cm&space;\small&space;\frac{(0&plus;2&plus;9&plus;13&plus;16)}{5}=\frac{40}{5}=8s" title="\small \frac{(0+2+9+13+16)}{5}=\frac{40}{5}=8s" />
 
 So, as we can see the average waiting time under the `FCFS` is quite too long.
+
+Suppose we change the order of arrival to be P2, P4, P5, P1, P3
+
+Task| burst time| arrival time
+----- | -------|----
+P1 | 6 seconds|4
+P2 | 3 seconds|0
+P3 | 8 seconds|5
+P4 | 3 seconds|2
+P5 | 4 seconds|3
+
+Task| wait time
+---| -------|
+P2 |0-0=0|
+P4 |3-1=2|
+P5 |6-2=4|
+P1 |10-3=7|
+P3 |16-4=12|
+
+- Average waiting time now:
+
+<img src="https://latex.codecogs.com/gif.latex?\dpi{150}&space;\bg_black&space;\small&space;\frac{(0&plus;2&plus;4&plus;7&plus;12)}{5}=\frac{25}{5}=5s" title="\small \frac{(0+2+4+7+12)}{5}=\frac{25}{5}=5s" />
+
+This reduction is substantial, and we can now see that the average waiting time under an FCFS policy is generally not minimal and varies if the processes burst time vary and depending on their order.
+
+
+<table><tr><td>The FCFS scheduling algorithm is non-preemptive</td></tr></table>
+Because the CPU cannot be taken away from the process executing, until and unless the process `terminates` it's execution or `waits` for an I/O.
+
+- The FCFS algorithm is particularly troublesome for time-sharing systems, where it is important that each user gets a share of teh CPU at frequent/regular intervals.
+- It would be disastrous to allow one process to keep the CPU for a very long time when they're at the head of the queue. All other processes will be stuck waiting.
+
 
 <hr>
 
@@ -134,7 +166,7 @@ So, as we can see the average waiting time under the `FCFS` is quite too long.
 
 - Schedules tasks in order of execution time, so for the same first example. 
 
-<a href="https://www.codecogs.com/eqnedit.php?latex=\inline&space;\dpi{150}&space;\bg_white&space;\fn_cm&space;\small&space;T_1(1s)>T_3(1s)>T_2(10s)" target="_blank"><img src="https://latex.codecogs.com/png.latex?\inline&space;\dpi{150}&space;\bg_white&space;\fn_cm&space;\small&space;T_1(1s)>T_3(1s)>T_2(10s)" title="\small T_1(1s)>T_3(1s)>T_2(10s)" /></a>
+<img src="https://latex.codecogs.com/png.latex?\inline&space;\dpi{150}&space;\bg_black&space;\fn_cm&space;\small&space;T_1(1s)>T_3(1s)>T_2(10s)" title="\small T_1(1s)>T_3(1s)>T_2(10s)" />
 
 ```c
 runqueue = ordered(queue)
@@ -143,15 +175,19 @@ runqueue = ordered(queue)
 runqueue = tree()
 ```
 
-- Throughput = <a href="https://www.codecogs.com/eqnedit.php?latex=\inline&space;\dpi{150}&space;\bg_white&space;\fn_cm&space;\small&space;\frac{3}{(1&plus;10&plus;1)}&space;=&space;\frac{3}{12}&space;=&space;0.25&space;s" target="_blank"><img src="https://latex.codecogs.com/png.latex?\inline&space;\dpi{150}&space;\bg_white&space;\fn_cm&space;\small&space;\frac{3}{(1&plus;10&plus;1)}&space;=&space;\frac{3}{12}&space;=&space;0.25&space;s" title="\small \frac{3}{(1+10+1)} = \frac{3}{12} = 0.25 s" /></a>
-- Average completion time = <a href="https://www.codecogs.com/eqnedit.php?latex=\inline&space;\dpi{150}&space;\bg_white&space;\fn_cm&space;\small&space;\frac{(1&plus;2&plus;12)}{3}&space;=\frac{15}{3}&space;=&space;5&space;s" target="_blank"><img src="https://latex.codecogs.com/png.latex?\inline&space;\dpi{150}&space;\bg_white&space;\fn_cm&space;\small&space;\frac{(1&plus;2&plus;12)}{3}&space;=\frac{15}{3}&space;=&space;5&space;s" title="\small \frac{(1+2+12)}{3} =\frac{15}{3} = 5 s"/> </a>
+- Throughput = <img src="https://latex.codecogs.com/png.latex?\inline&space;\dpi{150}&space;\bg_black&space;\fn_cm&space;\small&space;\frac{3}{(1&plus;10&plus;1)}&space;=&space;\frac{3}{12}&space;=&space;0.25&space;s" title="\small \frac{3}{(1+10+1)} = \frac{3}{12} = 0.25 s" />
+- Average completion time =<img src="https://latex.codecogs.com/png.latex?\inline&space;\dpi{150}&space;\bg_black&space;\fn_cm&space;\small&space;\frac{(1&plus;2&plus;12)}{3}&space;=\frac{15}{3}&space;=&space;5&space;s" title="\small \frac{(1+2+12)}{3} =\frac{15}{3} = 5 s"/> 
+- Average wait time = <img src="https://latex.codecogs.com/png.latex?\inline&space;\dpi{150}&space;\bg_black&space;\fn_cm&space;\small&space;\frac{(0&plus;1&plus;2)}{3}&space;=\frac{3}{3}=&space;1&space;s" title="\small \frac{(0+1+2)}{3} =\frac{3}{3}= 1 s" />
 
-- Average wait time = <a href="https://www.codecogs.com/eqnedit.php?latex=\inline&space;\dpi{150}&space;\bg_white&space;\fn_cm&space;\small&space;\frac{(0&plus;1&plus;2)}{3}&space;=\frac{3}{3}=&space;1&space;s" target="_blank"><img src="https://latex.codecogs.com/png.latex?\inline&space;\dpi{150}&space;\bg_white&space;\fn_cm&space;\small&space;\frac{(0&plus;1&plus;2)}{3}&space;=\frac{3}{3}=&space;1&space;s" title="\small \frac{(0+1+2)}{3} =\frac{3}{3}= 1 s" /></a>
+
+
+
+<hr>
 
 ### 3. Round-Robin Scheduling
 
 - Pick up the first task from queue (like FCFS)
 - Task may yield to wait on I/O (unlike FCFS)
 
-<hr>
+
 
