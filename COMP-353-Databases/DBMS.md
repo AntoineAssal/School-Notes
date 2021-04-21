@@ -8,7 +8,7 @@ User &rarr; UI &rarr; API(database application) &rarr; DBMS &rarr; DB (I think?)
 - A form of persistent storage that supports convenient, efficient, and secure access and manipulation of data.
 
 <p align="center">
-<a href="https://www.codecogs.com/eqnedit.php?latex=\inline&space;\dpi{150}&space;\bg_white&space;\fn_cm&space;\small&space;ACID=&space;\mathbf{A}tomicity,&space;\mathbf{C}onsistency,&space;\boldsymbol{I}solation,&space;\mathbf{D}urability" target="_blank"><img src="https://latex.codecogs.com/png.latex?\inline&space;\dpi{150}&space;\bg_white&space;\fn_cm&space;\small&space;ACID=&space;\mathbf{A}tomicity,&space;\mathbf{C}onsistency,&space;\boldsymbol{I}solation,&space;\mathbf{D}urability" title="\small ACID= \mathbf{A}tomicity, \mathbf{C}onsistency, \boldsymbol{I}solation, \mathbf{D}urability" /></a>
+<a href="https://www.codecogs.com/eqnedit.php?latex=\inline&space;\dpi{150}&space;\bg_black&space;\fn_cm&space;\small&space;ACID=&space;\mathbf{A}tomicity,&space;\mathbf{C}onsistency,&space;\boldsymbol{I}solation,&space;\mathbf{D}urability" target="_blank"><img src="https://latex.codecogs.com/png.latex?\inline&space;\dpi{150}&space;\bg_black&space;\fn_cm&space;\small&space;ACID=&space;\mathbf{A}tomicity,&space;\mathbf{C}onsistency,&space;\boldsymbol{I}solation,&space;\mathbf{D}urability" title="\small ACID= \mathbf{A}tomicity, \mathbf{C}onsistency, \boldsymbol{I}solation, \mathbf{D}urability" /></a>
 </p>
 
 - **Atomicity**: All or nothing. Either all the operations are done or none of them are done.
