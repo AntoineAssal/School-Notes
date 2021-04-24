@@ -19,6 +19,7 @@ Blocked if it stops executing.| Another thread keeps running if blocked.
 ### Solution
 
 - `Threads` are processes sharing the same common ressources (like code, pictures).
+- Processes are heavyweight because they each have their own address space.
 - By using `context switch` we do not need to re-load the common part among `threads` so that time is saved.
 - A `thread` is created by using both the `stack` and `registers` since the code and data is shared, these ressources only need to be loaded once, on the first run.
 - A `process` is created by using both the `stack` and `registers`; however, it needs to load its `data` and its cod`e every time a new `proces` is created.
