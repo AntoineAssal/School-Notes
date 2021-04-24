@@ -2,8 +2,9 @@
 
 ## Concepts covered before midterm
 
-The class wasn't taught in a "classic" linear progression way. Meaning that it didn't really follow the structure of the textbook or online videos teaching the same concepts. We took some modules from a chapter and some modules from another. At the end of the day, same material was covered but sometimes it's hard to follow. So here's my attempt at ordering the concepts in a way that made sense to me
+The class wasn't taught in a "classic" linear progression way. Meaning that it didn't really follow the structure of the textbook or online videos teaching the same concepts. We took some modules from a chapter and some modules from another. At the end of the day, same material was covered but sometimes it's hard to follow. So here's my attempt at ordering the concepts in a way that made sense to me.
 
+P.S. Pre-midterm I was using a markdown editor called [Obsidian](https://obsidian.md/) which let me easily construct mind maps and link concepts together across different markdown files. I dropped that and went back to vscode instead so that's why you might notice the inconsistency that notes for topics after midterm have much less backlinks 🙃
 
 ## My attempt at a table of contents:
 |File| Short description of what it covers
