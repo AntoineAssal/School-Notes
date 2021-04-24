@@ -43,21 +43,23 @@ counter = registerB
 
 Time| Caller| Statement| Result
 -- | -- | --- | --- |
-$T_0$|`producer`| `registerA = counter`| `registerA == 5`
-$T_1$|`producer`| `registerA = registerA + 1`| `registerA == 6`
-$T_2$|`consumer`| `registerB = counter`| `registerB == 5`
-$T_3$|`consumer`| `registerB = registerB - 1`| `registerB == 4`
-$T_4$|`producer`| `counter = registerA`| `counter == 6`
-$T_5$|`consumer`| `counter = registerB`| `counter == 4`
-At $T_2$ we still didn't modify the value of `counter`. So the `consumer` wrongly sets `RegisterB` to `5`.
-Till this point, $T_4$ , only the registers have been modified, not the counters. Now both are gonna try to modify the value of `counter`. 
-If `producer` gets a hold of it first then it'll run `counter = register A` incrementing it to `6`, decrementing to `4` if it's the consumer.
+`T0`|`producer`| `registerA = counter`| `registerA == 5`
+`T1`|`producer`| `registerA = registerA + 1`| `registerA == 6`
+`T2`|`consumer`| `registerB = counter`| `registerB == 5`
+`T3`|`consumer`| `registerB = registerB - 1`| `registerB == 4`
+`T4`|`producer`| `counter = registerA`| `counter == 6`
+`T5`|`consumer`| `counter = registerB`| `counter == 4`
+
+- At T2 we still didn't modify the value of `counter`. So the `consumer` wrongly sets `RegisterB` to `5`.
+- Till this point, `T4` , only the registers have been modified, not the counters. Now both are gonna try to modify the value of `counter`. 
+- If `producer` gets a hold of it first then it'll run `counter = register A` incrementing it to `6`.
+- Decrementing to `4` if it's the `consumer`.
 
 >This situation where several processes access and manipulate the same data concurrently and the outcome of the execution depends on the particular order in which the access takes place is called a **Race condition**.
 <hr>
 
 ## The Critical Section Problem
-- Consider a system consisting of $n$ processes $\{p_0,p_1,...,p_n\}$.
+- Consider a system consisting of n processes \{p_0,p_1,...,p_n\}.
 - Each `process` has a segment of code, called a **critical section**. In which the process may be changing common variables, writing a file, etc. (shared region memory)
 - When one `process` is executing in its **critical section**, (changing data in the shared memory) no other process is to be allowed to execute in its **critical section**.  -> No two `processes` are executing in their critical sections at the same time.
 #### Elements of the Critical Section
@@ -79,7 +81,7 @@ alt="Critical section elements">
 #### Critical Section Requirements
 A solution to the critical-section problem must satisfy the following three requirements:
 1. **Mutual Exclusion**
-		If process $P_i$  , is executing in its `critical section`, then no other processes can be executing in their critical sections.
+		If process P_i  , is executing in its `critical section`, then no other processes can be executing in their critical sections.
 1. **Progress**
 		If no process is executing in its `critical section` and some processes wish to enter their `critical sections`, then only those processes that are not executing in their remainder sections can participate in the decision on which will enter its critical section next, and this selection cannot be postponed indefinitely.
 	>Lets say that at some point of time there are no processes in critical section.
@@ -118,7 +120,7 @@ boolean TestAndSet(boolean *target) {
 ```
 **Atomic Operation:** This happens as a single operation that will run uninterrupted and independently of any other processes.
 
-Consider Process **$P_1$**
+Consider Process **P_1**
 ```c
 do {
 	while (TestAndSet(&lock));
@@ -129,14 +131,14 @@ do {
 } while (TRUE);
 ```
 - The lock variable is always `0` initially. 
-- When Process $P_1$ wants to run the critical section we start by calling `TestAndSet(0)`.
+- When Process P_1 wants to run the critical section we start by calling `TestAndSet(0)`.
 - That will return `0`. 
-- So it becomes `while(0)` causing the loop to break control so $P_1$ now enters the critical section.
-- Once the critical section is completed, $P_1$ will set `lock=FALSE` and runs whatever it has to do.
+- So it becomes `while(0)` causing the loop to break control so P_1 now enters the critical section.
+- Once the critical section is completed, P_1 will set `lock=FALSE` and runs whatever it has to do.
 
-Now what if we have another process $P_2$ trying to enter the critical section at the same time.
+Now what if we have another process P_2 trying to enter the critical section at the same time.
 
-Consider Process **$P_2$**
+Consider Process **P_2**
 ```c
 do {
 	while (TestAndSet(&lock));
@@ -146,11 +148,11 @@ do {
 	// remainder code
 } while (TRUE);
 ```
-- When Process $P_2$ wants to run the critical section we start by calling `TestAndSet(&lock)`
+- When Process P_2 wants to run the critical section we start by calling `TestAndSet(&lock)`
 > **What is the value of the lock now?**
-> Lock is now 1 because when $P_1$ called `TestAndSet(0)` it set 	`*target = TRUE;` so now $P_2$ calls `TestAndSet(1)`.
+> Lock is now 1 because when P_1 called `TestAndSet(0)` it set 	`*target = TRUE;` so now P_2 calls `TestAndSet(1)`.
 - That will return `1`. 
-- So it becomes `while(1)` causing the loop to keep looping there, so $P_2$ will not be able to get in the critical section, until/unless $P_1$ exits.
+- So it becomes `while(1)` causing the loop to keep looping there, so P_2 will not be able to get in the critical section, until/unless P_1 exits.
 
 
 

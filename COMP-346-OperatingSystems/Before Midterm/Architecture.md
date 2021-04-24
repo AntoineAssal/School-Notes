@@ -18,7 +18,7 @@ Suppose we didn't have `base` and `limit` [Registers](Registers.md). We can recr
 <hr>
 
 ## Memory Hierarchy
-The higher its placed on this hierarchy then the smaller it's storage capacity, the faster it's performance, the more $ expensive it is and the lower it's latency. Opposite is true for lower.
+The higher its placed on this hierarchy then the smaller it's storage capacity, the faster it's performance, the more  expensive it is and the lower it's latency. Opposite is true for lower.
 
 <p align="center">
 	<img src="https://i.imgur.com/QevrsrR.png" alt="Memory Hierarchy">

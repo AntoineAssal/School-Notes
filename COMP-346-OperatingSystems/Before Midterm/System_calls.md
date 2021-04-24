@@ -85,3 +85,5 @@ This `C` program invokes `printf()` call, which calls `write()` system call. So 
 Generally every system call has some identifying number. Internally the OS has a lookup table with all these `ints` to maintain the indexes.
 The caller doesn't need to know anything about how the system call works or is implemented (in fact they're mostly hidden from the programmer by an `API`), so just need to obey the `API` rules and understand what the consequence of a certain call is.
 
+<table><tr><td><b>PRO</b>: Fastest way of interacting</td></tr></table>
+<table><tr><td><b>CON</b>: Very risky. If the code crashes, user is then left stuck in kernel mode</td></tr></table>

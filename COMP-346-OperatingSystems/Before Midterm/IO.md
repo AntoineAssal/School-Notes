@@ -36,8 +36,8 @@ CPU issues commands to `I/O` devices, and continues its life. When the  `I/O` de
 > 
 > **Conclusion**: Synchronous is not a bad strategy. It just may be less efficient in your specific program but it's.
 
-
-*Normally the way an `I/O` device works is it has a local [Registers](Registers.md) where it stores data that was requested. When you request a byte from the disk it goes and fetches the byte then sends an interrupt when it's ready. Suppose we want to read a large file. We don't want to do that 1 byte at a time where we're issuing and receiving interrupts for every single byte. Because that's obviously inefficient and a waste. So instead we use memory-mapped IO*
+<table><tr><td>
+<i>Normally the way an I/O device works is it has a local <b>Registers</b> where it stores data that was requested. When you request a byte from the disk it goes and fetches the byte then sends an interrupt when it's ready. Suppose we want to read a large file. We don't want to do that 1 byte at a time where we're issuing and receiving interrupts for every single byte. Because that's obviously inefficient and a waste. So instead we use memory-mapped IO*</i><td></tr></table>
 
 ### 3. Memory-mapped:
 - Enables direct access to `I/O` controller (vs. being required to move the `I/O` code and data into memory)
@@ -67,14 +67,18 @@ The CPU sends a signal to the `I/O controller` saying read this file. Rather tha
 
 ## Polling
 
--   One simple means of device communication involves polling:
-    1.  The host repeatedly checks the _**busy bit**_ on the device until it becomes clear.
-    2.  The host writes a byte of data into the data-out register, and sets the _**write bit**_ in the command register ( in either order. )
-    3.  The host sets the _**command ready bit**_ in the command register to notify the device of the pending command.
-    4.  When the device controller sees the command-ready bit set, it first sets the busy bit.
-    5.  Then the device controller reads the command register, sees the write bit set, reads the byte of data from the data-out register, and outputs the byte of data.
-    6.  The device controller then clears the _**error bit**_ in the status register, the command-ready bit, and finally clears the busy bit, signaling the completion of the operation.
-> Polling can be very fast and efficient, if both the device and the controller are fast and if there is significant data to transfer. It becomes inefficient, however, if the host must wait a long time in the busy loop waiting for the device, or if frequent checks need to be made for data that is infrequently there.
+## One simple means of device communication involves polling:
+
+1.  The host repeatedly checks the _**busy bit**_ on thedevice until it becomes clear.
+2.  The host writes a byte of data into the data-outregister, and sets the _**write bit**_ in the commandregister ( in either order. )
+3.  The host sets the _**command ready bit**_ in thecommand register to notify the device of the pendingcommand.
+4.  When the device controller sees the command-ready bitset, it first sets the busy bit.
+5.  Then the device controller reads the command register,sees the write bit set, reads the byte of data from thedata-out register, and outputs the byte of data.
+6.  The device controller then clears the _**error bit**_in the status register, the command-ready bit, and finally clears the busy bit, signaling the completion of the operation.
+
+<table><td><tr>
+Polling can be very fast and efficient, if both the device and the controller are fast and if there is significant data to transfer. It becomes inefficient, however, if the host must wait a long time in the busy loop waiting for the device, or if frequent checks need to be made for data that is infrequently there.
+</td></tr></table>
 
 ## [Interrupts](Interrupts.md)
 -   Interrupts allow devices to notify the CPU when they have data to transfer or when an operation is complete, allowing the CPU to perform other duties when no I/O transfers need its immediate attention.

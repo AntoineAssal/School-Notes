@@ -1,9 +1,10 @@
 # Synchronization
 <hr>
 
-==Bad things can happen when two different threads share the same memory==
+<table><tr><td>Bad things can happen when two different threads share the same memory</td></tr></table>
+
 Already saw the famous basic example of [Producer Consumer Problem](Producer_Consumer_Problem.md).
-Here's another example (this is called [Race condition](Race_condirion.md))
+Now lets look at what a [Race condition](Race_condition.md) is
 ```java
 1    public boolean withdraw(long amount) {
 2       if (amount <= balance) {

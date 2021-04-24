@@ -3,9 +3,9 @@ A technique to manage concurrent processes by using a simple integer value, know
 ## What is a Semaphore?
 - Simply it is a variable which is non-negative and shared between threads.
 - This variable is used to solve the critical section problem and achieve process synchronization in the multi-processing environment.
-- A semaphore $S$ is an integer variable that, apart from initialization, is accessed only through two standard atomic operations `wait()` and `signal()`.
-	- `wait()` -> $P$ from `proberen`, which means "to test"
-	- `signal()` -> $V$ from `verhogen`, which means "to increment"
+- A semaphore S is an integer variable that, apart from initialization, is accessed only through two standard atomic operations `wait()` and `signal()`.
+	- `wait()` -> P from `proberen`, which means "to test"
+	- `signal()` -> V from `verhogen`, which means "to increment"
 
 ### Definition of `wait()`
 ```c
