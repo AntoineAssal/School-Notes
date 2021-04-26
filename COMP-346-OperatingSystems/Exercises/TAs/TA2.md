@@ -177,7 +177,7 @@ Nope. if m<n, process B will always be blocked because for it to iterate n times
 
 <hr>
 
-### Question 5
+## Question 5
 >In a **swapping/relocation system**, the values assigned to the <base, limit> `register` pair prevent one `user process` from writing into the `address space` of another user process. 
 >However, these assignment operations are themselves `privileged` instructions that can only be executed in `kernel mode`.
 >
@@ -193,7 +193,7 @@ Nope. if m<n, process B will always be blocked because for it to iterate n times
 
 <hr>
 
-### Question 6
+## Question 6
 > Sometimes it is necessary to synchronize two or more processes so that all process must finish their first phase before any of them is allowed to start its second phase. 
 > For two processes, we might write: `semaphore` s1 = 0, s2 = 0 
 ```
@@ -229,7 +229,7 @@ P (s1)
 
 <hr>
 
-### Question 7
+## Question 7
 > Generally, both `P` and `V` operations must be implemented as `critical sections`.
 > Are there any cases when any of these two operations can safely be implemented as a `non-critical section`? 
 > If yes, demonstrate through an example when/how this can be done without creating any violations.
@@ -243,7 +243,7 @@ If the ressource used is not shared among other processes, then there is no need
 
 <hr>
 
-### Question 8
+## Question 8
 
 > What is the potential problem of `multiprogramming`?
 
