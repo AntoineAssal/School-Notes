@@ -8,4 +8,14 @@ In order for pieces of the program to be located and loaded without causing a ma
 ## What is Virtual memory?
 A section of the computer's hard drive set up to emulate the computer's RAM. This allows the computer to address more memory than the amount of it physically installed on the system.
 
-https://www.cs.uic.edu/~jbell/CourseNotes/OperatingSystems/images/Chapter9/9_01_VirtualMemoryLarger.jpg
+<p align="center">
+	<img src="https://www.cs.uic.edu/~jbell/CourseNotes/OperatingSystems/images/Chapter9/9_01_VirtualMemoryLarger.jpg" alt="virtual memory">
+</p>
+
+Virtual memory is commonly implemented by demand paging. It can also be implemented in a segmentation system. Demand segmentation can also be used to provide virtual memory. 
+
+## Components 
+- A segment number: used to index the segment table whose entry gives the starting address of the page table for that segment  
+- A page number: used to index that page table to obtain the corresponding frame number  
+- An offset: used to locate the word within the frame  
+ 
