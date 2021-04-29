@@ -137,3 +137,38 @@ The first fit approach is to allocate the first free partition or hole large eno
 	<img src="https://i.imgur.com/QugNd7H.png" alt="First fit">
 </p>
 
+# Fragmentation
+
+As processes are loaded and removerd from memory, the free memory space is broken into little pieces which results in fragmentation, left as free spaces.
+
+## External Fragmentation
+- It exists when there is enough total memory space to satisfy a request, but the available spaces are not contiguous.
+- Storage is fragmented into a large number of small holes.
+- This a sever problem. In the worst case we could have a block of free (wasted) memory between every 2 processes.
+- If all these pieces were one big block instead, we would be able to use it to run more processes.
+- **Solution**: Use compaction.
+<p align="center">
+	<img src="https://i.imgur.com/hsNgGAX.png" width="400" alt="External fragmentation">
+</p>
+
+## Internal Fragmentation
+- It exists when memory blocks assigned to a process are bigger than what the process actually needs.
+- Some portion of the memory is left ununsed, since we can't load another process in the same block.
+
+<p align="center">
+	<img src="https://i.imgur.com/H447iW7.png" width="400" alt="Internal fragmentation">
+</p>
+
+- **Solution**: Use best-fit strategy.
+
+## What is Compaction?
+- Shuffling the memory contents to place all free memory together in one large block.
+- It is used to reduce external fragmentation.
+- It essentially groups processes with each other, and external fragments with each other.
+### Problems with Compaction?
+- Compaction is not always possible.
+	- If relocation is static and is done at assembly or load time, compaction cannot be done.
+	- Only possible if relocation is dynamoc and done at execution time.
+- Any pointers to a block need to be updated when the block is moved
+  - Memory address might get corrupted.
+
