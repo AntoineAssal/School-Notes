@@ -50,3 +50,38 @@
 - Case 3 : Make use of a [Translation Lookaside Buffer](TLB.md)
 
 
+## Page Table Entries
+- Page tables entries contain several information about pages which vary from OS to OS.
+- The most important information in a page table entry is the frame number.
+- The remaining information is optional
+
+<p align="center">
+	<img src="https://i.imgur.com/f98dIDj.png" width = "750" alt="Page table">
+</p>
+
+### 1. Frame number
+- Frame number denotes the frame where the page is present in the main memory.
+- The number of bits required for this depends on the number of frames in the main memory.
+- Most important piece of information in the page table entry.
+### 2. Present Absent
+- One bit (0 or 1) whether the page is present in the main memory or not.
+- Also known as valid/invalid bit.
+- If its not in the main memory and we need it then we need to find it from the secondary memory (hard drive)
+  - If the page we looking for is not present in the main memory that's called a Page Fault
+### 3. Protection
+- Also known as Read/Write bit, used for page protection.
+- It specifies the permissions for read or write operations on the page.
+  - Bit is set to 0, if only read is allowed.
+  - Bit is set to 1, if both read and write are allowed.
+### 4. Reference
+- The reference bit specifies whether the page has been referenced in the last clock cycle or not
+  - It is set to 1 when the page has been accessed, 0 if not.
+### 5. Caching
+- The caching bit is used for enabling or disabling caching of the page.
+- When we need fresh data we have to disable caching so we avoid fetching of old data from the cache.
+- If we want to disable caching, this bit is set to 1, otherwise it is set to 0.
+### 6. Dirty
+- Also known as the modified bit.
+- It specifies whether the page has been modified or not.
+- If the page has been modified then this bit is set to 1, otherwise set to 0.
+- This bit helps in avoiding unnecessary writes to the secondary memory when a page is being replaced by another page.
