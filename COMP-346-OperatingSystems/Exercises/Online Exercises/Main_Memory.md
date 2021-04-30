@@ -175,3 +175,70 @@ Consider a machine with 64 MB physical memory and a 32-bit virtual address space
 <img src="https://latex.codecogs.com/png.latex?\dpi{150}&space;\bg_black&space;\small&space;=&space;2^&space;{20}\times&space;16\:bits&space;(approx\:for\:bytes)" title="\small = 2^ {20}\times 16\:bits (approx\:for\:bytes)" />
 
 <img src="https://latex.codecogs.com/png.latex?\dpi{150}&space;\bg_black&space;\small&space;=&space;2^&space;{20}\times&space;2\:bytes&space;=&space;2^{21}\:bytes&space;=&space;\frac{2097152}{1024\times1024}=2\:MB" title="\small = 2^ {20}\times 2\:bytes = 2^{21}\:bytes = \frac{2097152}{1024\times1024}=2\:MB" />
+
+## Question 6
+For each of the following four processes `P1, P2, P3, P4`, the total size in kilobytes (KB) and the number of segments are given below.\
+The `page size` is `1 KB`. The size of an `entry` in the `page table` is `4 bytes`. The size of an `entry` in the segment table is `8 bytes`. The `maximum size of a segment is 256 KB`. The paging method for memory management uses `two-level paging`, and its `storage overhead is P`. The storage overhead for the `segmentation method is S`. `The storage overhead for the segmentation and paging method is T`.\
+**What is the relation among overheads for the different methods of memory management in the concurrent execution of the below four processes?**
+
+Process ID| Total Size (KB) | Number of Segments
+:---:| :-------:|:-----:|
+P1 | 195| 4
+P2 | 254|5
+P3 | 45|8
+P4 | 364|3
+
+## Solution
+### Given information
+- Page size = 1 KB
+- Page table entry size = 4 bytes
+- Segment table entry size = 8 bytes
+- Max segment size = 256 KB
+- Storage overhead for 2-level Paging = P
+- Storage overhead for Segmentation = S
+- Storage overhead for Segmentation and Paging = T
+
+### Notes
+- We need to find the relation between the 3 storage overheads.
+
+### For 2-level paging
+We have an outer and an inner page table.
+In one page table we can have : 
+
+<img src="https://latex.codecogs.com/png.latex?\dpi{150}&space;\bg_black&space;\small&space;Number\:of\:entries\:in\:page\:table&space;=&space;\frac{Size\:of\:Page\:table}{Page\:table\:entry\:size}=\frac{1024}{4}=256\: pages" title="\small Number\:of\:entries\:in\:page\:table = \frac{Size\:of\:Page\:table}{Page\:table\:entry\:size}=\frac{1024}{4}=256" /> 
+
+So P1, P2 and P3 will fit since 195, 254 and 45 < 256
+In the case of P4, we need 1 outer page and 2 inner page tables since we can only hold 256 pages. So
+```
+  Storage overhead for process P1 = 1 KB + 1 KB = 2 KB
+  Storage overhead for process P2 = 1 KB + 1 KB = 2 KB
+  Storage overhead for process P3 = 1 KB + 1 KB = 2 KB
+  Storage overhead for process P4 = 1 KB + 2 KB = 3 KB
+  Total overhead P = (2+2+2+3) KB = 9 KB 
+  ```
+
+### For Segmentation
+`Storage overhead = Segment table entry size x Number of segments`
+```
+  Storage overhead for process P1 = 8 bytes x 4 = 32 bytes
+  Storage overhead for process P2 = 8 bytes x 5 = 40 bytes
+  Storage overhead for process P3 = 8 bytes x 8 = 64 bytes
+  Storage overhead for process P4 = 8 bytes x 3 = 24 bytes
+  Total overhead S = (32+40+64+24) bytes = 160 bytes 
+  ```
+### For Segmentation with paging
+`Page table size = No. entries in page table x page table entry size = 256 x 4 = 1024 bytes = 1 KB`\
+`Storage overhead = Segmentation overhead + 1 KB overhead for paging`\
+```
+  Storage overhead for process P1 = (8 bytes x 4) + 1 KB = (32 + 1024) bytes = 1056 bytes
+  Storage overhead for process P2 = (8 bytes x 5)+ 1 KB = (40 + 1024) bytes = 1064 bytes
+  Storage overhead for process P3 = (8 bytes x 8)+ 1 KB = (64 + 1024) bytes = 1088 bytes
+  Storage overhead for process P4 = (8 bytes x 3)+ 1 KB = (24 + 1024) bytes = 1048 bytes
+  Total overhead T = (1056+1064+1088+1048) bytes = 4256 bytes 
+  ```
+### Relation
+- P = 9 KB = 9216 bytes
+- S = 160 bytes
+- T = 4256 bytes
+
+So  `S < T < P`.
