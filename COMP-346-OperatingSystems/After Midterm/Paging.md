@@ -142,3 +142,31 @@ For example consider a system with :
 	<img src="https://i.imgur.com/dpb2xH3.jpg" width = "700" alt="Page table">
 </p> 
 
+## Hashed Page Tables
+- Used for handling `address spaces` larger than `32 bits` where even `multi-level paging` produces `page tables` that are still too large.
+- We use a `Hash value`, which is the `Virtual page number`.
+- Each `entry` in the `hash table` contains a `linked list` of elements that `hash` to the same location.
+- This linkedlist we're using will contain three fields:
+  1. Virtual Page Number = Page number in the logical address.
+  2. The Value of the Mapped Page Frame = Frame number, to which frame is this page mapped.
+  3. A Pointer to the Next Element in the Linked List.
+
+<p align="center">
+	<img src="https://i.imgur.com/zShNLVz.png" width = "550" alt="Page table">
+</p> 
+
+### The Algorithm
+- The virtual page number in the virtual address is hashed into the hash table.
+- The virtual page number is compared with field 1 in the first element in the linked list.
+  - If there is a match, the corresponding page frame (field 2) is used to form the desired physical address.
+  - If there is no match, subsequent entries in the linked list are searched for a matching virtual page number.
+
+<p align="center">
+	<img src="https://i.imgur.com/YgRFWHF.png" width = "550" alt="Page table">
+</p> 
+
+### Clustered Page Tables
+- A variation of the hashed page tables which is favorable for 64-bit addresses.
+- It is similar to the hashed page tables except that each entry in the hash table refers to several pages rather than a single page.
+- Therefore, a single page-table entry can store the mappings for multiple physical-page frames.
+- Clustered page tables are particularly useful for sparse address spaces, where memory references are non-contiguous and scattered throughout the address space.
