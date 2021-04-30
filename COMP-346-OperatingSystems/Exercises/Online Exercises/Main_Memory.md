@@ -136,3 +136,42 @@ Consider a system with byte-addressable memory, 32-bit logical addresses, 4 kilo
 - Process size = `2`<sup>`32`</sup> `= 4 GB`
 - <img src="https://latex.codecogs.com/png.latex?\dpi{150}&space;\bg_black&space;\small&space;Number\:of\:entries\:in\:page\:table&space;=&space;\frac{Process\:Size}{Page\:Size}=\frac{4\:GB}{4\:KB}=\frac{2^{32}\:&space;bytes}{2^{12}\:&space;bytes}=2^{20}" title="\small Number\:of\:entries\:in\:page\:table = \frac{Process\:Size}{Page\:Size}=\frac{4\:GB}{4\:KB}=\frac{2^{32}\: bytes}{2^{12}\: bytes}=2^{20}" />
 - `2`<sup>`20`</sup> `x` `4 bytes =` `2`<sup>`20`</sup> `x 2`<sup>`2`</sup>`= 2`<sup>`22`</sup>`= 4194304 bytes = 4 MB`
+
+## Question 5
+Consider a machine with 64 MB physical memory and a 32-bit virtual address space. \
+**If the page size is 4KB, what is the approximate size of the page table?**
+## Solution
+### Given information
+- Logical address = 32 bits
+- Size of the page = 4 KB
+
+### Notes
+- We need to find the total bits in physical address
+  - Some bits will be used for the frame number
+  - Some bits will be used for the page offset
+- Then we can calculate the process size.
+  - With the process size we can get the number of entries in page table
+  - `Page table size = number of entries in page table x page table entry size`
+
+### Calculations
+- Physical memory = `64 MB` = `2`<sup>`26`</sup>
+  - So number of bits in physical address is `26 bits`.
+- <img src="https://latex.codecogs.com/png.latex?\dpi{150}&space;\bg_black&space;\small&space;Number\:of\:frames\:in\:main\:memory=\frac{Size\:of\:main\:memory}{Frame\:Size}=\frac{64\:MB}{4\:MB}" title="\small Number\:of\:frames\:in\:main\:memory=\frac{Size\:of\:main\:memory}{Frame\:Size}=\frac{64\:MB}{4\:MB}" /><img src="https://latex.codecogs.com/png.latex?\dpi{150}&space;\bg_black&space;\small&space;=\frac{2^{26}\:&space;bytes}{2^{12}\:&space;bytes}&space;=&space;2^{14}" title="\small =\frac{2^{26}\: bytes}{2^{12}\: bytes} = 2^{14}" />
+  - So the number of bits in frame number = `14 bits`.
+- Page size = `4 KB` = `2`<sup>`12`</sup> `bytes`.
+  - So the number of bits in page offset = `12 bits`.
+- So now our physical address of `26 bits` is split into:
+  - `14 bits` to represent frame number.
+  - `12 bits` to represent page offset.
+- Given that the logical address = `32 bits`
+  - Then our process size is = `2`<sup>`32`</sup> `bytes` = `4 GB`
+<br>
+
+<img src="https://latex.codecogs.com/png.latex?\dpi{150}&space;\bg_black&space;\small&space;Number\:of\:Entries\:in\:page\:table&space;=&space;\frac{Process\:Size}{Page\:Size}=\frac{4\:GB}{4\:KB}=2^{20}pages" title="\small Number\:of\:Entries\:in\:page\:table = \frac{Process\:Size}{Page\:Size}=\frac{4\:GB}{4\:KB}=2^{20}pages" />
+<br>
+<img src="https://latex.codecogs.com/png.latex?\dpi{150}&space;\bg_black&space;\small&space;Size\:of\:Page\:Table=Entrie\:in\:page\:table\:&space;\times\:&space;Page\:table\:entry\:size" title="\small Size\:of\:Page\:Table=Entrie\:in\:page\:table\: \times\: Page\:table\:entry\:size" />
+<img src="https://latex.codecogs.com/png.latex?\dpi{150}&space;\bg_black&space;\small&space;Size\:of\:Page\:Table=Entrie\:in\:page\:table\:&space;\times\:Number\:of\:bits\:for\:frame\:number" title="\small Size\:of\:Page\:Table=Entrie\:in\:page\:table\: \times\:Number\:of\:bits\:for\:frame\:number" />
+<img src="https://latex.codecogs.com/png.latex?\dpi{150}&space;\bg_black&space;\small&space;=&space;2^&space;{20}\times&space;14\:bits" title="\small = 2^ {20}\times 14\:bits" />
+<img src="https://latex.codecogs.com/png.latex?\dpi{150}&space;\bg_black&space;\small&space;=&space;2^&space;{20}\times&space;16\:bits&space;(approx\:for\:bytes)" title="\small = 2^ {20}\times 16\:bits (approx\:for\:bytes)" />
+
+<img src="https://latex.codecogs.com/png.latex?\dpi{150}&space;\bg_black&space;\small&space;=&space;2^&space;{20}\times&space;2\:bytes&space;=&space;2^{21}\:bytes&space;=&space;\frac{2097152}{1024\times1024}=2\:MB" title="\small = 2^ {20}\times 2\:bytes = 2^{21}\:bytes = \frac{2097152}{1024\times1024}=2\:MB" />
