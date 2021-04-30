@@ -227,8 +227,10 @@ In the case of P4, we need 1 outer page and 2 inner page tables since we can onl
   Total overhead S = (32+40+64+24) bytes = 160 bytes 
   ```
 ### For Segmentation with paging
-`Page table size = No. entries in page table x page table entry size = 256 x 4 = 1024 bytes = 1 KB`\
-`Storage overhead = Segmentation overhead + 1 KB overhead for paging`\
+`Page table size = No. entries in page table x page table entry size = 256 x 4 = 1024 bytes = 1 KB`
+
+`Storage overhead = Segmentation overhead + 1 KB overhead for paging`
+
 ```
   Storage overhead for process P1 = (8 bytes x 4) + 1 KB = (32 + 1024) bytes = 1056 bytes
   Storage overhead for process P2 = (8 bytes x 5)+ 1 KB = (40 + 1024) bytes = 1064 bytes
@@ -242,3 +244,32 @@ In the case of P4, we need 1 outer page and 2 inner page tables since we can onl
 - T = 4256 bytes
 
 So  `S < T < P`.
+
+# MCQ quiz
+## Question 1
+If a particular program can legally access all physical addresses from 300040 through 420940 (inclusive). What will be the value stored in its `LIMIT` register?
+## Solution
+`420940 - 300040 = 120900`
+
+## Question 2
+With respect to address binding:\
+If it is known where the process would reside in memory during `Compile time` then `______`code can be generated.\
+If its not known then the compiler must generate`______ `code.
+## Solution
+Absolute, relocatable
+
+
+## Question 3
+A CPU generates 32-bit virtual addresses. The page size is 4 KB. The processor has a TLB which can hold a total of 128 page table entries and is 4-way set associative. The minimum size of the TLB tag is?
+
+
+## Question 4
+In a virtual memory system, size of virtual address is 32-bits, size of physical address is 30-bits, page size is 4 KB and size of each page table entry is 32-bits. The main memory is byte addressable. What is the maximum number of bits that can be used for storing protection and other information in each page table entry?
+
+## Question 5
+Consider five memory partitions of 100 KB, 500 KB, 200 KB, 300 KB and 600 KB (in order) and four process requests of 212 KB, 417 KB, 112 KB and 426 KB (in order). Determine which memory allocation technique can optimally satisfy the requirements and make most efficient use of memory (First fit, Best fit, Worst Fit)
+
+## Question 6
+Consider a paging system with the page table stored in memory. If a memory reference takes 200 nanoseconds, how long does a paged memory reference take?
+
+
