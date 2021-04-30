@@ -94,37 +94,37 @@ The `PTE` is `32 bits` in size. The `processor` used in the computer has a `1MB 
 
 
 ## Question 3
-A computer system implements a 40-bit virtual address, page size of 8 kilobytes, and a 128-entry Translation look-aside buffer (TLB) organized into 32 sets each having four ways.\
-Assume that the TLB tag does not store any process id.\
+A computer system implements a` 40-bit virtual address`, `page size of 8 kilobytes`, and a `128-entry `Translation look-aside buffer (TLB) organized into `32 sets` each having `four ways`.\
+Assume that the `TLB` tag does not store any process id.\
 **What is the minimum length of the TLB tag in bits**
 ## Solution
 ### Given information
-- Logical address = 40 bits.
-- Page size = 8 KB
-- TLB has 128 entries:
-  - Divided into 4.
-  - Organized into 32 sets.
+- Logical address = `40 bits`.
+- Page size = `8 KB`
+- TLB has `128` entries:
+  - Divided into `4`.
+  - Organized into `32 sets`.
 ### Notes
 - Some of the bits used for logical/virtual address is what will be used to represent the TLB tag.
-- Given that TLB is organized into 32 sets
-  - Set offset = 5 bits
-    - Because 2<sup>5</sup> = 32
-- Given that page size is 8 KB
-  - Word offset = 13 bits
-    - Because 8 KB = 8192 bytes = 2<sup>13</sup>
+- Given that `TLB` is organized into `32 sets`
+  - Set offset = `5 bits`
+    - Because `2`<sup>`5`</sup> = `32`
+- Given that page size is `8 KB`
+  - Word offset = `13 bits`
+    - Because `8 KB = 8192 bytes = 2`<sup>`13`</sup>
 ### Calculations
 
 `Minimum length of the TLB tag = Total Logical address size - set offset - word offset`\
 `= 40 - 5 - 13 = 22 bits`
 
 ## Question 4
-Consider a system with byte-addressable memory, 32-bit logical addresses, 4 kilobyte page size and page table entries of 4 bytes each.\
+Consider a system with byte-addressable memory, `32-bit logical addresses`, `4 kilobyte page size` and page table `entries of 4 bytes` each.\
 **What is the size of the page table in the system in megabytes**
 ## Solution
 ### Given information
-- Logical address = 32 bits
-- Page size = 4 KB
-- Page table entry size = 4 bytes
+- Logical address = `32 bits`
+- Page size = `4 KB`
+- Page table entry size = `4 bytes`
   
 ### Notes 
 - We have to find the size of the page table
@@ -138,19 +138,19 @@ Consider a system with byte-addressable memory, 32-bit logical addresses, 4 kilo
 - `2`<sup>`20`</sup> `x` `4 bytes =` `2`<sup>`20`</sup> `x 2`<sup>`2`</sup>`= 2`<sup>`22`</sup>`= 4194304 bytes = 4 MB`
 
 ## Question 5
-Consider a machine with 64 MB physical memory and a 32-bit virtual address space. \
+Consider a machine with `64 MB physical memory` and a `32-bit virtual address space`. \
 **If the page size is 4KB, what is the approximate size of the page table?**
 ## Solution
 ### Given information
-- Logical address = 32 bits
-- Size of the page = 4 KB
+- Logical address = `32 bits`
+- Size of the page = `4 KB`
 
 ### Notes
-- We need to find the total bits in physical address
-  - Some bits will be used for the frame number
-  - Some bits will be used for the page offset
-- Then we can calculate the process size.
-  - With the process size we can get the number of entries in page table
+- We need to find the `total bits in physical address`
+  - Some bits will be used for the `frame number`
+  - Some bits will be used for the `page offset`
+- Then we can calculate the `process size`.
+  - With the `process size` we can get the `number of entries in page table`
   - `Page table size = number of entries in page table x page table entry size`
 
 ### Calculations
@@ -190,13 +190,13 @@ P4 | 364|3
 
 ## Solution
 ### Given information
-- Page size = 1 KB
-- Page table entry size = 4 bytes
-- Segment table entry size = 8 bytes
-- Max segment size = 256 KB
-- Storage overhead for 2-level Paging = P
-- Storage overhead for Segmentation = S
-- Storage overhead for Segmentation and Paging = T
+- Page size = `1 KB`
+- Page table entry size = `4 bytes`
+- Segment table entry size = `8 bytes`
+- Max segment size = `256 KB`
+- Storage overhead for 2-level Paging = `P`
+- Storage overhead for Segmentation = `S`
+- Storage overhead for Segmentation and Paging = `T`
 
 ### Notes
 - We need to find the relation between the 3 storage overheads.
@@ -239,9 +239,9 @@ In the case of P4, we need 1 outer page and 2 inner page tables since we can onl
   Total overhead T = (1056+1064+1088+1048) bytes = 4256 bytes 
   ```
 ### Relation
-- P = 9 KB = 9216 bytes
-- S = 160 bytes
-- T = 4256 bytes
+- `P = 9 KB = 9216 bytes`
+- `S = 160 bytes`
+- `T = 4256 bytes`
 
 So  `S < T < P`.
 
@@ -250,6 +250,7 @@ So  `S < T < P`.
 If a particular program can legally access all physical addresses from 300040 through 420940 (inclusive). What will be the value stored in its `LIMIT` register?
 ## Solution
 `420940 - 300040 = 120900`
+<hr>
 
 ## Question 2
 With respect to address binding:\
@@ -258,18 +259,67 @@ If its not known then the compiler must generate`______ `code.
 ## Solution
 Absolute, relocatable
 
+<hr>
 
 ## Question 3
-A CPU generates 32-bit virtual addresses. The page size is 4 KB. The processor has a TLB which can hold a total of 128 page table entries and is 4-way set associative. The minimum size of the TLB tag is?
+A CPU generates `32-bit virtual addresses`. The` page size is 4 KB`. The processor has a TLB which can hold a total of `128 page table entries` and is `4-way set associative`. The minimum size of the TLB tag is?
+## Solution
+- Logical address size = `32 bits`
+- Page size = `4KB` = `2`<sup>`12`</sup>, so `12 bits are needed for page offset.`
+- Number of bits needed for page frame = `32 - 12 = 20`
+- Since TLB is `4-way set` associative and holds 128 then number of sets in cache is `128 / 4 = 32 = 2`<sup>`5`</sup>.
+  - So `5 bits` are needed to address a set.
+- So number of bits for TLB tag is:
 
+`20 - 5 = 15 bits`
+<hr>
 
 ## Question 4
-In a virtual memory system, size of virtual address is 32-bits, size of physical address is 30-bits, page size is 4 KB and size of each page table entry is 32-bits. The main memory is byte addressable. What is the maximum number of bits that can be used for storing protection and other information in each page table entry?
+In a virtual memory system, size of `virtual address is 32-bits`, `size of physical address is 30-bits`, `page size is 4 KB` and `size of each page table entry is 32-bits`. The` main memory is byte addressable`. What is the maximum number of bits that can be used for storing protection and other information in each page table entry?
+
+## Solution
+- Main Memory size = 2<sup>30</sup> = 1 GB
+- <img src="https://latex.codecogs.com/png.latex?\dpi{150}&space;\bg_black&space;\small&space;Frames\:in\:main\:memory&space;=\frac{Main\:Memory\:Size}{Frame\:size}=\frac{1\:GB}{4\:KB}=\frac{2^{30}}{2^{12}}=2^{18}" title="\small Frames\:in\:main\:memory =\frac{Main\:Memory\:Size}{Frame\:size}=\frac{1\:GB}{4\:KB}=\frac{2^{30}}{2^{12}}=2^{18}" />
+- So the number of bits for protection and other optional information is:
+  
+`Page entry size - bits for frame number`
+
+`32 bits - 18 bits = 14 bits`
+
+<hr>
 
 ## Question 5
-Consider five memory partitions of 100 KB, 500 KB, 200 KB, 300 KB and 600 KB (in order) and four process requests of 212 KB, 417 KB, 112 KB and 426 KB (in order). Determine which memory allocation technique can optimally satisfy the requirements and make most efficient use of memory (First fit, Best fit, Worst Fit)
+Consider five memory partitions of `100 KB, 500 KB, 200 KB, 300 KB` and `600 KB` (in order) and four process requests of `212 KB, 417 KB, 112 KB` and `426 KB` (in order). Determine which memory allocation technique can optimally satisfy the requirements and make most efficient use of memory (First fit, Best fit, Worst Fit)
+
+### First Fit
+- `212 KB` placed in `500 KB partition`
+- `417 KB` placed in `600 KB partition`
+- `112 KB` placed in `200 KB partition`
+- `426 Kb` waits
+
+### Best Fit
+- `212 KB` placed in `300 KB partition`
+- `417 KB` placed in `500 KB partition`
+- `112 KB` placed in `200 KB partition`
+- `426 KB` placed in `600 KB partition`
+
+### Worst fit
+- `212 KB` placed in `600 KB partition`
+- `417 KB` placed in `500 KB partition`
+- `112 KB` placed in `300 KB partition`
+- `426 KB` waits
+
+## Solution
+
+**Best-fit** optimally satisfies all requests and makes the most efficient use of memory.
+<hr>
 
 ## Question 6
 Consider a paging system with the page table stored in memory. If a memory reference takes 200 nanoseconds, how long does a paged memory reference take?
+## Solution
+
+`200 nanoseconds to access the page table + 200 nanoseconds to access the word in memory so`
+
+`400 nanoseconds`
 
 
