@@ -80,7 +80,7 @@ Assume that `C` is a page which is not yet present in memory. Then a page fault 
   - `200 + 7 999 800 (0.001) = 8199.8 = 8.2 microseconds`
     - This slows down the system by 41 times.
   
-### What happens in the system when a page fault occurs?
+### What Happens in the System when a Page Fault Occurs?
 1. Trap is sent to the OS
 2. Save the user registers and process state.
 3. Determine that the interrupt recieved was a page fault.
@@ -97,3 +97,33 @@ Assume that `C` is a page which is not yet present in memory. Then a page fault 
 11. Wait for the CPU to be allocated to this process again.
 12. Restore the user registers, process state and new page table
 13. Resume the interrupted instruction
+
+## Problems of `Demand Paging`
+- We have already seen how the performance is negatively affected.
+- The main advantage of `Demand Paging` is that we're increasing our degree of `multi-programming`.
+  - Since loading only the required pages, gives us the possibility of having more processes loaded.
+    - But this could lead to `over-allocation of memory`!
+### Example
+- Suppose we have `40 frames` in memory.
+- We have `6 processes`, each of which has `10 pages` but uses only `5` at the moment.
+- So we can load these `30 pages` into memory.
+- All the `6 processes` are executing together and our user is happy.
+- We still have `10 free frames`.
+- Now the `6 processes` need to load the remainder of their `pages`.
+- So we need to load `30 pages`, but we only have `10 free frames`. The 6 processes will crash.
+### What can the `OS` do at this point?
+1. It could terminate the user process.
+   - Destroys the purpose of `Demand Paging`.
+2. The `OS could swap out a process, freeing all its frames and reducing the level of multi-programming
+   - Can be a good option in certain circumstances.
+3. Use a [Page Replacement technique](Page_Replacement.md).
+  
+## Copy on Write (CoW)
+- Copy on Write is a technique used for sharing virtual memory or pages.
+- Most commonly used in conjunction with the `fork()` system call that is used for creating child processes.
+- Instead of duplicating the pages belonging to the parent.
+  -  We optimize this method by making both processes share the common  pages.
+  - Only create a copy when one of the processes wants to write (modify a page).
+
+
+
