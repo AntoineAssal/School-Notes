@@ -12,10 +12,33 @@ Relocatable programs are programs that can be read into memory at any address an
 
 A program can be considered relocatable if it can be stored and accessed by jumping to different locations in memory from the relocation registers,
 
-1. `Security` : User programs will not see the actual main memory, they will only work with their virtual memory address.
-2. `Memory usage` : By fixing a program to a memory address, we're wasting that address when the program is not running.
-3. `Multitasking` : By using virtual addressing and swapping, we require less memory to run a process. Therefore, more processes can run at the same time.
+- `Security` : User programs will not see the actual main memory, they will only work with their virtual memory address.
+- `Memory usage` : By fixing a program to a memory address, we're wasting that address when the program is not running.
+- `Multitasking` : By using virtual addressing and swapping, we require less memory to run a process. Therefore, more processes can run at the same time.
 
+2. Small pages versus big pages
+   
+Advantage| Disadvantage
+:---:| :-------:|
+No Internal Fragmentation| Frequent context switches 
+
+
+3. Paging over segmentation
+   
+Advantage| Disadvantage
+:---:| :-------:|
+No External Fragmentation| Longer memory lookup
+No direct access to physical addresses in main memory | Stores less data per block
+Frames are not placed contiguously | Page table takes more memory than segment table
+
+
+4. Segmentation over Paging
+
+Advantage| Disadvantage
+:---:| :-------:|
+Variable Size| Can cause External fragmentation
+Segment table takes less space| Need user interaction
+Can store more data per block
 <hr>
 
 ## Question 2
@@ -55,17 +78,17 @@ signal(){
 3. Suppose that process `A` calling `semaphore wait()` gets blocked and another process `B` is selected to run (refer to the above code). Since interrupts are enabled only at the completion of the wait operation, will `B` start executing with the interrupts disabled? 
 
 ### Solution
-
+1. The critical sections is all the code between wait and signal.
 <hr>
 
 
 ## Question 3 
-Consider a demand-paged system where the page table for each process resides in main memory. In addition, there is a fast associative memory (also known as TLB which stands for Translation Look-aside Buffer) to speed up the translation process. Each single memory access takes 1 microsecond while each TLB access takes 0.2 microseconds. Assume that 2% of the page requests lead to page faults, while 98% are hits. On the average, page fault time is 20 milliseconds (includes everything: TLB/memory/disc access time and transfer, and any context switch overhead). Out of the 98% page hits, 80 % of the accesses are found in the TLB and the rest, 20%, are TLB misses. Calculate the effective memory access time for the
-system.
+Consider a demand-paged system where the page table for each process resides in main memory. In addition, there is a fast associative memory (also known as TLB which stands for Translation Look-aside Buffer) to speed up the translation process. Each `single memory access takes 1 microsecond` while each `TLB` access takes` 0.2 microseconds`. Assume that `2% of the page requests lead to page faults`, while `98% are hits`. On the average, `page fault time is 20 milliseconds` (includes everything: TLB/memory/disc access time and transfer, and any context switch overhead). Out of the `98% page hits`, `80 % of the accesses are found in the TLB` and the rest, `20%, are TLB misses`. Calculate the `effective memory access time for the
+system.`
 
 
 ### Solution
-
+`EAM = 2% x 20 + 98%(80%(0.2+1)+20% x 0.2) = 1.38 ms` 
 <hr>
 
 ## Question 4 
@@ -83,6 +106,46 @@ size ∆=3 (∆ indicates the maximum number allowed for a page to be in memory 
 replaced; i.e. if a page is not used for 3 consecutive times, then it must either be
 used/demanded next, or it has to be removed). How many page faults are there?
 ### Solution
+1. With LRU
+   
+|P|0|1|2|0|1|2|0|1|2|3|6|7|6|7|0|1|2|3|4|
+|:-:|:-:|:-:|:-:|:-:|:-:|:-:|:-:|:-:|:-:|:-:|:-:|:-:|:-:|:-:|:-:|:-:|:-:|:-:|:-:|
+F0|0*|0|0|0|0|0|0|0|0|3*|3|3|3|3|0*|0|0|3*|3
+F1| |1*|1|1|1|1|1|1|1|1|6*|6|6|6|6|1*|1|1|4*
+F2| | |2*|2|2|2|2|2|2|2|2|7*|7|7|7|7|2*|2|2
+`page faults = 11`
+
+2. With Belady Optimal Algorithm
+   
+
+|P|0|1|2|0|1|2|0|1|2|3|6|7|6|7|0|1|2|3|4|
+|:-:|:-:|:-:|:-:|:-:|:-:|:-:|:-:|:-:|:-:|:-:|:-:|:-:|:-:|:-:|:-:|:-:|:-:|:-:|:-:|
+F0|0*|0|0|0|0|0|0|0|0|0|0|0|0|0|0|1*|1|1|1
+F1| |1*|1|1|1|1|1|1|1|1|1|7*|7|7|7|7|2*|2|2
+F2| | |2*|2|2|2|2|2|2|3*|6*|6|6|6|6|6|6|3*|4*
+`page faults = 10`
+
+3. With Working set Model (∆=3)
+
+
+|P|0|1|2|0|1|2|0|1|2|3|6|7|6|7|0|1|2|3|4|
+|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|
+F0|0*|0|0|0|0|0|0|0|0|3*|3|3|3| |0*|0|0|3*|3
+F1| |1*|1|1|1|1|1|1|1|1|6*|6|6|6|6|1*|1|1|4*
+F2| | |2*|2|2|2|2|2|2|2|2|7*|7|7|7|7|2*|2|2
+ws|0|1|2| | | | | |{0,1,2}| | | | | | | | | | |
+ws| | | | | | | | | |{1,2,3}| | | | | | | | | |
+ws| | | | | | | | | | | {2,3,6}| | | | | | | | |
+ws| | | | | | | | | | | | | {3,6,7}| | | | | | |
+ws| | | | | | | | | | | | | | {6,7}| | | | | |
+ws| | | | | | | | | | | | | | | {6,7,0}|
+ws| | | | | | | | | | | | | | | |{7,0,1}|
+ws| | | | | | | | | | | | | | | | | {0,1,2}| | | |
+ws| | | | | | | | | | | | | | | | | |{1,2,3}| |
+ws| | | | | | | | | | | | | | | | | | |{2,3,4} |
+
+
+`page faults = 11`
 
 <hr>
 
@@ -94,6 +157,12 @@ Consider a system that would implement the page table on the CPU if feasible.
 
 ### Solution
 
+
+Advantage| Disadvantage
+:---:| :-------:|
+Faster searching for a page request | Limited Size of the page table because the cache and registers have a small capacity
+No TLB required| A small expansion in memory will be expensive
+
 <hr>
 
 ## Question 6 
@@ -102,7 +171,15 @@ Consider a system that would implement the page table on the CPU if feasible.
 
 
 ### Solution
+- In global allocation a process resulting in page fault can select a replacement from the set of all frames.
+- In Local replacement a process resulting in page fault can only select a replacement from its own frames.
 
+Advantage| Disadvantage
+:---:| :-------:|
+More frames| Taking frames from other processes may crash the system
+More data of a process can be loaded at one time| Reduces the amount of programs that can run at one time.
+Less context switches required
+Reduction in unused frames belonging to other processes| 
 <hr>
 
 ## Question 7
@@ -113,12 +190,21 @@ Describe the performance of the paging system in terms of the degree of multipro
 3. `T`<sub>`pf`</sub> is equal to `T`<sub>`fs`</sub>.
 
 ### Solution
+`T`<sub>`pf`</sub> `> T`<sub>`fs`</sub>| `T`<sub>`pf`</sub> `< T`<sub>`fs`</sub>| `T`<sub>`pf`</sub> `= T`<sub>`fs`</sub>
+:---:| :-------:|:-----:
+The `CPU` has **lower throughput** than it should be since the majority of its time is spent on **searching**|The `CPU` has **higher throughput** than it should be since the majority of its time is spent on **running the process**. | The `CPU` has **average throughput** since time spent on **searching is equal to the running time**.
+Page faults occure less often than it takes to service a page fault which would result in the best multi-programming| Page faults take longer to service than they occur which would result in bad multi-programming| Performs slightly better if it were less pages but page faults will still happen fairly often.
+
 
 <hr>
 
 ## Question 8
 Some systems automatically open a file when it is referenced for the first time and close the file when the job terminates. Discuss the advantages and disadvantages of this scheme as compared to the more traditional one, where the user has to open and close the file explicitly. 
 ### Solution
+Advantage| Disadvantage
+:---:| :-------:|
+Less chance to have human error| Risk of copying the pointer since it may not be closed properly.
+Faster process overall | Cannot close a file before the program exits
 
 <hr>
 
@@ -139,8 +225,11 @@ Some systems automatically open a file when it is referenced for the first time 
 ## Question 10
 
 What advantage is there in having different values of the scheduling quantum on different levels of a multilevel feedback queuing system?\
-Your answer should consider all aspects such asfairness, starvation, efficiency, etc.
+Your answer should consider all aspects such as fairness, starvation, efficiency, etc.
 ### Solution
+
+
+
 
 <hr>
 
@@ -168,5 +257,35 @@ Assume that all processes arrived at the same time, however they are inserted in
 3. What is the repsonse time of each process in each case?
 4. What is the turnaround time of each process in each case?
 ### Solution
+1. Gannt Charts 
 
+<img src="https://i.imgur.com/0fmj7Ng.png">
+
+2. Waiting times
+
+Algo|P0|P1|P2|P3|P4 
+:---:|:-------:|:---:|:--:|:--:|:--:|
+FCFS|0|20|35|57|63|
+SJF|33|18|53|0|6|
+Priority|27|0|47|69|15|
+RR|51|45|54|21|42|
+
+3. Response times
+
+Algo|P0|P1|P2|P3|P4 
+:---:|:-------:|:---:|:--:|:--:|:--:|
+FCFS|0|20|35|57|63|
+SJF|33|18|53|0|6|
+Priority|27|0|47|69|15|
+RR|0|3|6|8|12|
+
+
+4. Turnaround times
+
+Algo|P0|P1|P2|P3|P4 
+:---:|:-------:|:---:|:--:|:--:|:--:|
+FCFS|20|35|57|63|75|
+SJF|53|33|75|6|18|
+Priority|47|15|69|75|27|
+RR|71|60|75|27|54|
 <hr>
