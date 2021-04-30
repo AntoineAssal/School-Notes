@@ -85,3 +85,17 @@
 - It specifies whether the page has been modified or not.
 - If the page has been modified then this bit is set to 1, otherwise set to 0.
 - This bit helps in avoiding unnecessary writes to the secondary memory when a page is being replaced by another page.
+
+## Shared Pages
+- An advantage of paging is the possibility of sharing common code.
+- This is particularly important in a time-sharing environment
+- If the code is reentrant (or pure) code, in other words, code that doesn't change itself during execution, then it can be shared among different processes.
+- However, each process has its own copy of registers and data storage to hold the data for the process's execution.
+- Therefore, the data for different processes will of course be different and cannot be shared.
+- To illustrate the benefits of using shared pages, consider the following example:
+
+A system supports 40 users, each of whom executes a text editor program. If the text editor consists of 150KB of code and 50KB of data space we will need :
+- Without Shared Paging : (150x40) + (50x40) = 6000 + 2000 = 8000 KB to support the 40 users.
+- With Shared Paging : 150 + (50x40) = 150+ 2000 = 2150 KB to support the 40 users.
+  
+
