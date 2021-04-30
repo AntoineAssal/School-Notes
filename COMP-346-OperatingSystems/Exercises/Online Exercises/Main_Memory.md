@@ -16,7 +16,7 @@ The `PTE` is `32 bits` in size. The `processor` used in the computer has a `1MB 
   - T2 stores the base address of a page of T3
   - T3 stores a page table entry
     - Which size is 32-bits = 4 bytes.
-### Note
+### Notes
 We're looking for the page size which is equal to the size of a page entry in T3.
 
 ### T1
@@ -67,3 +67,72 @@ We're looking for the page size which is equal to the size of a page entry in T3
 <img src="https://latex.codecogs.com/png.latex?\dpi{150}&space;\bg_black&space;\small&space;x=\frac{52}{4}=&space;13\:bits" title="\small x=\frac{52}{4}= 13\:bits" />
 <br>
 <img src="https://latex.codecogs.com/png.latex?\dpi{150}&space;\bg_black&space;\small&space;Page\:Size=2^{13}=8129\:bytes=\frac{8129}{1024}=8\:&space;KB" title="\small Page\:Size=2^{13}=8129\:bytes=\frac{8129}{1024}=8\: KB" />
+
+## Question 2 
+A computer uses `46-bit virtual address`, `32-bit physical address`, and a `three level paged` page table organization. The page table `base register` stores the base address of the first-level table (`T1`), which occupies exactly one page. Each entry of `T1` stores the base address of a page of the second-level table (`T2`). Each entry of `T2` stores the base address of a page of the third-level table (``T3``). Each entry of `T3` stores a page table entry (`PTE`).\
+The `PTE` is `32 bits` in size. The `processor` used in the computer has a `1MB 16 way set associative virtually indexed physically tagged cache`. The `cache block` size is `64 bytes`.\
+\
+**What is the minimum number of page colors needed to guarantee that no two synonyms map to different sets in the processor cache of this computer?**
+## Solution
+### Given information
+- Cache size = `1 MB`
+  - Uses 16 way set associative virtually indexed physically tagged cache.
+- Cache block size = `64 bytes`
+- We already found that the Page size is `8 KB`
+
+### Notes
+- We have a cache divided into sets.
+- No two sets in the cache should share the same color.
+- If we can find the number of sets in cache, thats the number of color we're looking for.
+
+### Calculations
+
+<img src="https://latex.codecogs.com/png.latex?\dpi{150}&space;\bg_black&space;\small&space;Number\:of\:Pages\:in\:cache=&space;\frac{Cache\:Size}{Page\:Size}=\frac{1\:MB}{8\:KB}=\frac{20^{20}}{2^{13}}bytes&space;=&space;2^7=128" title="\small Number\:of\:Pages\:in\:cache= \frac{Cache\:Size}{Page\:Size}=\frac{1\:MB}{8\:KB}=\frac{20^{20}}{2^{13}}bytes = 2^7= 128" />
+
+<img src="https://latex.codecogs.com/png.latex?\dpi{150}&space;\bg_black&space;\small&space;Number\:of\:Sets=&space;\frac{Number\:of\:Pages\:in\:cache}{16}=\frac{128}{16}=8\:colors" title="\small Number\:of\:Sets= \frac{Number\:of\:Pages\:in\:cache}{16}=\frac{128}{16}=8" />
+
+
+
+## Question 3
+A computer system implements a 40-bit virtual address, page size of 8 kilobytes, and a 128-entry Translation look-aside buffer (TLB) organized into 32 sets each having four ways.\
+Assume that the TLB tag does not store any process id.\
+**What is the minimum length of the TLB tag in bits**
+## Solution
+### Given information
+- Logical address = 40 bits.
+- Page size = 8 KB
+- TLB has 128 entries:
+  - Divided into 4.
+  - Organized into 32 sets.
+### Notes
+- Some of the bits used for logical/virtual address is what will be used to represent the TLB tag.
+- Given that TLB is organized into 32 sets
+  - Set offset = 5 bits
+    - Because 2<sup>5</sup> = 32
+- Given that page size is 8 KB
+  - Word offset = 13 bits
+    - Because 8 KB = 8192 bytes = 2<sup>13</sup>
+### Calculations
+
+`Minimum length of the TLB tag = Total Logical address size - set offset - word offset`\
+`= 40 - 5 - 13 = 22 bits`
+
+## Question 4
+Consider a system with byte-addressable memory, 32-bit logical addresses, 4 kilobyte page size and page table entries of 4 bytes each.\
+**What is the size of the page table in the system in megabytes**
+## Solution
+### Given information
+- Logical address = 32 bits
+- Page size = 4 KB
+- Page table entry size = 4 bytes
+  
+### Notes 
+- We have to find the size of the page table
+- Given the logical address size we can calculate process size
+  - With the process size we can get the number of entries in the page table.
+  - Then if we multiply that by the Page table entry size, we get the size of the page table.
+
+### Calculations
+- Process size = `2`<sup>`32`</sup> `= 4 GB`
+- <img src="https://latex.codecogs.com/png.latex?\dpi{150}&space;\bg_black&space;\small&space;Number\:of\:entries\:in\:page\:table&space;=&space;\frac{Process\:Size}{Page\:Size}=\frac{4\:GB}{4\:KB}=\frac{2^{32}\:&space;bytes}{2^{12}\:&space;bytes}=2^{20}" title="\small Number\:of\:entries\:in\:page\:table = \frac{Process\:Size}{Page\:Size}=\frac{4\:GB}{4\:KB}=\frac{2^{32}\: bytes}{2^{12}\: bytes}=2^{20}" />
+- `2`<sup>`20`</sup> `x` `4 bytes =` `2`<sup>`20`</sup> `x 2`<sup>`2`</sup>`= 2`<sup>`22`</sup>`= 4194304 bytes = 4 MB`
