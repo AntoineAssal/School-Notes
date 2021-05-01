@@ -125,3 +125,23 @@ P2 | 11111111|The page has been used at least once in each period
 P3 | 11000100|The page has been used more recently than P4
 P4 | 01110111|The page has been used less recently than P3
 
+## Second-Chance Algorithm
+- It is similar to a FIFO replacement algorithm with an additional feature.
+- When a page has been selected, we check its reference bit.
+    - If its 0, we replace the page.
+    - If its 1, we give a second chance and move on to the next page without replacing this one yet.
+    - When a page gets a second chance, its reference bit is reset to 0 and its arrival time is reset to the current time.
+    - So if a page is given a second chance, it is not replaced untill all other pages are either replaced or given their own second chances.
+- If a page is frequently used, its reference bit will be set (1) and it will never be replaced.
+
+## Enhanced Second-Chance Algorithm
+- Here we consider the Reference bit and the Modify bit as an ordered pair.
+  
+Reference bit| Modify bit | What it Implies | Notes
+:-----:| :-------:|:----:|:---:
+0|0|The page was neither used recently nor modified | Best page to replace.
+0|1|The page was not recently used but it was modified | Not the best page, as we will have to write this page to the disk when replacement is done.
+1|0|The page has been used recently but not modified | There are chances that this page will be used again soon.
+1|1|The page has been used recently and has been modified| There are chances that this page will be used again soon and also we will have to write this page to the disk if we choose to replace this page.
+
+## Counting-Based Page Replacement
