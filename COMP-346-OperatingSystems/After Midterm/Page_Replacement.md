@@ -144,4 +144,22 @@ Reference bit| Modify bit | What it Implies | Notes
 1|0|The page has been used recently but not modified | There are chances that this page will be used again soon.
 1|1|The page has been used recently and has been modified| There are chances that this page will be used again soon and also we will have to write this page to the disk if we choose to replace this page.
 
-## Counting-Based Page Replacement
+## Counting-Based Page Replacement (Not commonly used)
+- Maintain a counter that keeps a count of the number of references made to each page.
+- Using the Counter we formulate the schemas like:
+  - Least Frequently Used (LFU) Page Replacement Algorithm.
+  - Most Frequently Used (MFU) Page Replacement Algorithm.
+
+### LFU
+- Pages which are least used: lesser counts
+- Pages which are most used : greater counts.
+- Replace the page with the least count.
+- Problem?
+  - Pages that were heavily used during the initial phase of processes would have higher counts and would remain in memory though they may not be needed.
+
+### MFU
+- Pages which are least used: lesser counts
+- Pages which are most used : greater counts.
+- Do not replace the page with the least count.
+
+Both are expensive and not good enough so we don't actually use these.
