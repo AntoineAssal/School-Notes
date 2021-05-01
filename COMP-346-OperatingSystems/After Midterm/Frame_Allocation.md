@@ -68,3 +68,62 @@ Consider a system with 64 free frames where frame size = 1KB and we have 2 proce
 ## 3. Priority Allocation
 - The frames are distributed among the processes according to their priorities.
 - Here we implement a proportional allocation scheme using priorities or a combination of size and priorities than just the size of the processes.
+
+
+## Global vs Local Allocation
+
+### In Global
+- When a page fault occurs:
+  - Processes are allowed to select replacement frames from the set of all frames. Even if the frames are allocated to some other processes.
+<p align="center">
+<img src="https://i.imgur.com/bjZnmlm.png" height="400" alt="Page table">
+</p>
+
+- If process P1 is of higher priority than processes P2 and P3 (our assumption) and if all frames of P1 are full and it now needs to load one more frame due to a page fault, it is not limited to to the 3 frames allocated to P1 and can take a frame from P2 or P3.
+
+### Problem
+- Replacement is gonna be easy because less restriction but
+- Processes cannot control their own page fault rate
+  - Any process can steal the frame from another process.
+  - A page fault can occur because it was "stolen" by another process
+- The number of frames allocated to a process will vary during the execution.
+
+### In Local
+- When a page fault occurs:
+  - Processes are allowed to select replacement frames only from the set of frames that is particularly allocatyed to them.
+### Problem
+- Memory utilization not as good as Global replacement.
+
+## Thrashing
+
+<table><tr><td>Consider a process that doesn't have enough frames for its execution. What happens?</td></tr></table>
+
+1. It will cause a page fault, triggering a page replacemnt algo
+2. Replace a page with the new desired page
+3. The page that was replaced was an actively used page, so this also causes a page fault.
+4. Replace a page with the desired page.
+5. The page that was replaced was an actively used page, so this also causes a page fault.
+
+This cycle continues leading to a high paging activity called `Thrashing`.
+
+## Working-Set Model
+<table><tr><td>A way to reduce/prevent Thrashing</td></tr></table>
+
+- We want to give every process enough frames to have minimal page faults.
+- We use a parameter ∆ which defines the working set window.
+- The set of pages in the most recent ∆ page references is the working set.
+  - If a page is in active use, it will be in the working set.
+  - If it is not being used, it will drop from the working set ∆ time units after its last reference.
+- The working set is an approximation of the program's locality.
+
+### Example
+
+<p align="center">
+<img src="https://i.imgur.com/LKV5Kxn.png" alt="Page table">
+</p>
+
+<table><tr><td>The Accuracy of the working set depends on the selection of ∆ </td></tr></table>
+
+- If ∆ is too large : It may ovelap several localities.
+- If ∆ is too small : It may not cover the entire localities.
+- If ∆ is infinite : The working set is the set of pages touched during the process execution
