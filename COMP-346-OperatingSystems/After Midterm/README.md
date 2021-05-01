@@ -12,9 +12,11 @@ The class wasn't taught in a "classic" linear progression way. Meaning that it d
 |[3: Schedulers](Schedulers.md)| Types, Metrics|
 |[4: Scheduling](Scheduling.md)| Scheduling Algorithms, Types|
 |[5: High-Level Synchronization](Monitors.md)| Monitors, Types|
-|[6: Memory Management]()| 
-
-|[6: Virtual Memory]()| 
-
-|[6: File Systems]()| 
+|[6: Deadlocks](Deadlocks.md)| 
+|[7: Memory Management](Memory_Management.md)| 
+|[8: Paging](Paging.md)| 
+|[9: Segmentation](Segmentation.md)| 
+|[10: Virtual Memory](Virtual_Memory.md)| 
+|[11: Demand Paging](Demand_Paging.md)| 
+|[12: Page Replacement](Page_Replacement.md)| 
 
