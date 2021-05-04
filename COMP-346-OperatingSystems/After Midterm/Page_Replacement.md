@@ -163,3 +163,7 @@ Reference bit| Modify bit | What it Implies | Notes
 - Do not replace the page with the least count.
 
 Both are expensive and not good enough so we don't actually use these.
+
+## Page Buffering Algorithm
+- We maintain a pool of free frames
+- 
