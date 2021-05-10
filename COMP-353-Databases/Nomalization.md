@@ -27,7 +27,3 @@ also in 3NF
 – A is a key attribute
 
 
-Boyce-Codd Normal Form BCNF: achieved by first making sure the table is in third normal
-form. So the steps are :
-• The Relation is in 3NF
-• For every non-trivial dependency X → A, A is a superkey
