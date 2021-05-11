@@ -31,3 +31,26 @@
 - The system asks a user to complete a test which the computer is able to generate and grade, but not able to solve it.
 - Given that computers cannot solve the `CAPTCHA`, any user entering a correct solution is presumed to be a human.
 - Also known as `Reverse Turing Test` because it is given by a machine to a human.
+
+# What is AI
+According to the Oxford Dictionaryof English, artificial intelligence is:
+```
+The theory and development of computer systems able to perform tasks normally requiring human intelligence, such as visual perception, speech recognition,
+decision-making, and translation between languages
+```
+Arthur Samuel defined machine learning as 
+```
+The field of study that gives computers the ability to learn without being explicitly programmed
+```
+
+## Programming
+The main idea is using `declarative programming` which :
+- Expresses the logic of a computation without describing the control flow.
+- Starts with a formal problem specification
+  - A concise description of the problem that is to be solved.
+- Used as the basis for `PROLOG`.
+- Makes it hard to solve practical problems because its not always possible to specify them in a completely logical framework.
+- Can be used for `Search problems` where the task is to find a path in a graph :
+  - Typical example is what we saw in the slides [15 puzzle](https://en.wikipedia.org/wiki/15_puzzle).
+- Can be used for Games like chess or checkers.
+- Can be used for Constraint satisfaction problems.
