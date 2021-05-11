@@ -1,7 +1,7 @@
 # Types of AI
 ## 1. Artificial Narrow Intelligence `ANI`
 - Also known as weak AI.
-- Involves applying AI onlt to specific tasks.
+- Involves applying AI only to specific tasks.
 - A system whose capabilities are not intended to match or exceed the capabilities of human beings.
 - A system that can perform a specific intellectual task as well as a human would.
 - An example of this would be SIRI or ALEXA:
@@ -11,12 +11,12 @@
 
 ## 2. Artificial General Intelligence `AGI`
 - Also known as strong AI or General AI.
-- Involves machines that posess the ability to perform any intellectual task that a human being can.
+- Involves machines that posses the ability to perform any intellectual task that a human being can.
 - An example is thinking and reasoning like a human:
   - There are no real world applications right now.
 
 
-## 3. Artifical Super Intelligence `ASI`
+## 3. Artificial Super Intelligence `ASI`
 - Also known as Super AI.
 - Refers to the time when AI's capability of problem solving will surpass humans.
 - Used in Sci-fi movies.
@@ -33,14 +33,14 @@
 - Also known as `Reverse Turing Test` because it is given by a machine to a human.
 
 # What is AI
-According to the Oxford Dictionaryof English, artificial intelligence is:
+According to the Oxford Dictionary of English, artificial intelligence is:
 ```
 The theory and development of computer systems able to perform tasks normally requiring human intelligence, such as visual perception, speech recognition,
-decision-making, and translation between languages
+decision-making, and translation between languages.
 ```
-Arthur Samuel defined machine learning as 
+Arthur Samuel defined machine learning as:
 ```
-The field of study that gives computers the ability to learn without being explicitly programmed
+The field of study that gives computers the ability to learn without being explicitly programmed.
 ```
 
 ## Programming

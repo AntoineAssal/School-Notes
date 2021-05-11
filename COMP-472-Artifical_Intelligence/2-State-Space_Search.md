@@ -3,7 +3,7 @@
 
 ## Example: 8-Puzzle
 - Suppose that we have `3X3` board. With any arrangement of `8` numbered tiles with an empty tile.
-- Our `initital state` is the scrambled board on the left.
+- Our `initial state` is the scrambled board on the left.
 - `Goal state` is the sorted board with the numbers put in order and the empty tile on the bottom right corner or in the middle.
 <p align="center">
 <img src="https://i.imgur.com/dLMxjF6.png" width="450"/>
@@ -11,7 +11,7 @@
 
 - Most `AI` problems can be expressed in terms of going from an `initial state` to a `goal state`.
 - There is no direct way to find a solution, so usually we list the possibilities and search through them.
-  - **Brute Force Search** : Generales all possibilities and searches through them.
+  - **Brute Force Search** : Generates all possibilities and searches through them.
     - Obviously inefficient.
   - **Heuristic search** : Only try the possibilities based on the current best guess that they might lead to a good solution.
 
@@ -24,7 +24,7 @@
 - Actions responsible for transition between states.
 ## 3. Goal Test Functions
 - Applied to a state to determine if it is a `goal state`.
-  - Solved puzzlle.
+  - Solved puzzle.
   - Being at Concordia.
 ## 4. Path cost function
 - Assigns a cost to a path so we can tell if it's preferable to another.
