@@ -90,3 +90,17 @@ TypeError: 'str' object does not support item assignment
 'cat'
 ```
 # Tuples
+- Works same was as lists except that tuples are immutable. We cannot add/remove/replace items.
+- Tuples are being created and destroyed all the time in Python. 
+- Each time we call a function, a tuple is created to hold its arguments. 
+- Each time we return multiple values from a function, a tuple is created to hold them.
+
+```py
+>>> x, y = 3, 5   # Create a tuple (3, 5) and unpack the values into tuple (x, y)
+>>> x
+3
+>>> y
+5
+```
+Tuples are slightly more memory efficient than lists (one chunk, not two), but this seldom matters.
+
