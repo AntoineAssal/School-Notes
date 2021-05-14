@@ -54,3 +54,58 @@ The basics of defining new types, of defining functions, and of storing variable
 >>> Point2D.dimensions()        # Call the 'dimensions' method on the type object 'Point2D'
 2                               # (Has nothing to do with the instance referred to by variable 'p')
 ```
+# The None Object
+There is a special None object used in Python:
+```py
+>>> x = None       # Make variable 'x' refer to the global None object
+>>> x              # If we ask Python's REPL to evaluate None, it doesn't print anything
+>>> print(x)       # But we can print the None object
+None
+```
+Python variables are never actually NULL — they must always refer to some object (an integer, a string, something). So, there is one global object called "None" that any variable can refer to.
+<table><tr><td>The None object is used to mean "no specific value." If a function has no return value, it returns None</td></tr></table>
+
+```py
+>>> def foo():
+...    pass         # Pass just means "do nothing" in Python
+
+>>> print(foo())    # The 'foo' function actually returns a reference to the global None object
+None
+```
+Consider the dictionary `get` method, a useful alternative to `dict[key]` syntax:
+```py
+>>> help(dict.get)
+get(self, key, default=None)
+    Return the value for key if key is in the dictionary, else default.
+```
+We can override `default=None` when calling the function.
+```py
+>>> x = {'a': 0, 'b': 1}
+>>> x['c']                  # If we access the value for a key that does not exist, an error is raised
+KeyError: 'c'
+
+>>> print(x.get('c'))       # If we 'get' the value for a key that does not exist, None is returned
+None
+
+>>> x.get('c', default=0)   # Specify a different object to return on missing keys, rather than None
+0
+```
+Also None evaluates to `False` in conditionals:
+```py
+>>> bool(None)
+False
+```
+This is relevant to if-statements that may evaluate a None object:
+```py
+>>> if x.get('c'):          # get() returns a reference to the None object, which converts to False
+...     print("Dictionary key 'c' was found")
+... else:
+...     print("Dictionary kKey 'c' was not found")
+Dictionary key 'c' was not found
+```
+Since other objects may evaluate to False (such as the integer 0 or an empty string '') it is good practice to explicitly test whether a value is not None:
+
+```py
+>>> if x.get('a') is not None:      # Evaluates to True even if get() returns 0 or False
+...     ...
+```
