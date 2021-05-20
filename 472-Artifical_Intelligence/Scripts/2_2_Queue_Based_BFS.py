@@ -1,9 +1,10 @@
 from collections import deque
 
-def search(start, goal, next_states):
+
+def bfs_queue(start, goal, next_states):
     Frontier = deque([start])
-    Parent = {start:start}
-    while len(Frontier) > 0 :
+    Parent = {start: start}
+    while len(Frontier) > 0:
         state = Frontier.popleft()
         if state == goal:
             return path_to(state, Parent)
@@ -12,7 +13,8 @@ def search(start, goal, next_states):
             if ns not in Parent:
                 Parent[ns] = state
                 Frontier.append(ns)
-                
+
+
 def path_to(state, Parent):
     p = Parent[state]
     if p == state:

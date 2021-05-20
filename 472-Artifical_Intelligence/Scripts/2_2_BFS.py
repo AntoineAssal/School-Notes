@@ -11,7 +11,8 @@ def bfs(start, goal, next_states):
                     Parent[ns] = s
                     if ns == goal:
                         return path_to(goal, Parent)
-                        
+
+
 def path_to(state, Parent):
     p = Parent[state]
     if p == state:
