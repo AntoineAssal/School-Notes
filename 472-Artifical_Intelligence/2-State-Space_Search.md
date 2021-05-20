@@ -6,7 +6,7 @@
 - Our `initial state` is the scrambled board on the left.
 - `Goal state` is the sorted board with the numbers put in order and the empty tile on the bottom right corner or in the middle.
 <p align="center">
-<img src="https://i.imgur.com/dLMxjF6.png" width="450"/>
+<img src="https://i.imgur.com/pv5I40X.png" width="450"/>
 </p>
 
 - Most `AI` problems can be expressed in terms of going from an `initial state` to a `goal state`.
@@ -32,7 +32,7 @@
 Now if we take the same example and make sense of what we just said.
 
 <p align="center">
-<img src="https://i.imgur.com/dLMxjF6.png" width="450"/>
+<img src="https://i.imgur.com/pv5I40X.png" width="450"/>
 </p>
 
 We already know what the `initial` and `goal` states should look like.
@@ -61,3 +61,4 @@ We already know what the `initial` and `goal` states should look like.
 <img src="https://i.imgur.com/3ly98d6.png" width="450"/>
 <img src="https://i.imgur.com/wWi1XNd.png" width="450"/>
 </p>
+
