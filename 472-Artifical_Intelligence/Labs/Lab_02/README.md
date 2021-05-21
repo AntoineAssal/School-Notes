@@ -9,14 +9,56 @@ Represent this problem as a search problem. Choose a representation for the
 problem’s states and:
 
 1. Write down the initial state.
-2. Write down the goal state. 
+2. Write down the goal state.
 3. Write down all illegal states.
 4. Write down the possible actions.
 5. Draw the state space for this problem.
 6. Find a series of moves to solve this problem.
 
 ### Solution   
+#### Initial State
+We can represent it as `position(farmer, fox, goose, beans)` and our initial state would be `positional(s, s, s, s)`
 
+#### Goal State
+`position(g, g, g, g)`
+#### Illegal States
+Given the conditions we need to respect, some problems arise in different scenarios, making some of the possible states illegal.
+- Farmer reaches goal alone or the opposite:
+
+`position(g, s, s, s)`
+
+`position(s, g, g, g)`
+- Fox left alone with goose:
+
+`position(g, s, s, g)`
+
+`position(s, g, g, s)`
+
+- Goose left alone with beans:
+
+`position(g, g, s, s)`
+
+`position(s, s, g, g)`
+
+#### Possible Actions
+`moveToGoal(farmer, null)`
+
+`moveToGoal(farmer, fox)`
+
+`moveToGoal(farmer, goose)`
+
+`moveToGoal(farmer, beans)`
+
+`moveToStart(farmer, null)`
+
+`moveToStart(farmer, fox)`
+
+`moveToStart(farmer, goose)`
+
+`moveToStart(farmer, beans)`
+
+#### State Space Graphic Representation
+#### Possible Solution
 
 
 <hr>
@@ -27,7 +69,7 @@ Assume that `S` is the initial state and `G`<sub>`1`</sub> and `G`<sub>`2`</sub>
 
 <img src="https://i.imgur.com/g1DQOPk.png">
 
-Show the states visited, along with open and closed lists at each seet for each of the following search strategy.
+Show the states visited, along with open and closed lists at each step for each of the following search strategy.
 
 1. Breadth-First Search
 2. Depth-First Search
